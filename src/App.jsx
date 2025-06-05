@@ -1,5 +1,5 @@
 import './App.css'
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Link, HashRouter } from 'react-router-dom'
 import Page1 from '/src/Page1';
 import Page2 from '/src/Page2';
 import Page3 from '/src/Page3';
@@ -20,7 +20,7 @@ function App() {
 
   return (
     <AppContext.Provider value={{ isLoading, setIsLoading }}>
-      <BrowserRouter>
+      <HashRouter>
         <div className='loadingDiv' style={{ display: isLoading ? null : "none" }}>
           {/* <span className="loader"></span> */}
           <img className='spinning_fast' src="/graphql.png" width={"80"} />
@@ -49,7 +49,7 @@ function App() {
           </div>
 
         </div>
-      </BrowserRouter>
+      </HashRouter>
     </AppContext.Provider>
   )
 }
