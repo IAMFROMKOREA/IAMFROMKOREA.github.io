@@ -32,7 +32,7 @@ function Login() {
             sessionStorage.setItem("stepId", stepId);
             sessionStorage.setItem("stepPassword", stepPassword);
             sessionStorage.setItem("isMainWS", true);
-            window.location.href = "/StepMain";
+            window.location.href = "/";
         } else {
             setMsg("Invalid UserId and Password.");
         }
@@ -62,7 +62,9 @@ function Login() {
                         </div>
                         <div style={{ position: "relative" }}>
 
-                            <input type="password" placeholder='STEP PASSWORD' className='Input loginInput' value={stepPassword} onChange={(e) => { setStepPassword(e.target.value) }}></input>
+                            <input type="password" placeholder='STEP PASSWORD' className='Input loginInput' value={stepPassword}
+                                onKeyDown={(e) => { if (e.key == "Enter") { doLogin(); } }}
+                                onChange={(e) => { setStepPassword(e.target.value) }}></input>
 
                         </div>
                         <input type='checkbox' id="decryption" style={{ display: "none" }} />
@@ -90,8 +92,6 @@ function Login() {
                     </div>
 
                 </div>
-
-
             </div>
 
 

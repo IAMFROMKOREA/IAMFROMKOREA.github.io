@@ -215,6 +215,10 @@ input[type="checkbox"] {
   width: 100%;
 }
 
+.tabStyle1 tr:hover>td {
+  background-color: #93d4e0;
+}
+
 .tabStyle1 th {
   background-color: #e0eaec;
   color: black;
@@ -1244,4 +1248,9 @@ input[id='sourceSelectCheck']:checked+.sourceSelectSlide::after {
 
 .extensionBottom>div {
   margin-left: 10px;
+}
+
+.searchLoadingArea {
+  padding-top: 100px;
+  height: 100%;
 }

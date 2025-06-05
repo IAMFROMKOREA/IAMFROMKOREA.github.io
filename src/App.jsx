@@ -20,6 +20,9 @@ function App() {
 
 
   return <AppContext.Provider value={{ isLoading, setIsLoading }}>
+    <div className='loadingDiv' style={{ display: isLoading ? null : "none" }}>
+      <img className='spinning_fast' src="/graphql.png" width={"80"} />
+    </div>
     {sessionStorage.getItem("stepId") + "" != "null" ? <>
       <StepMain></StepMain>
     </> : <>

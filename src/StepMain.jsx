@@ -18,7 +18,7 @@ function StepMain() {
     const [entityData, setEntityData] = useState({}); //entity 루트
     const [productData, setProductData] = useState({});//product 루트
     const curTabArea = document.getElementById('curTabArea');//top 버튼 클릭시 상단이동
-    let [treeAreaWidth, setTreeAreaWidth] = useState(500);
+    const [treeAreaWidth, setTreeAreaWidth] = useState(500);
     const { setIsLoading } = useContext(AppContext);
     const [curTabNo, setCurTabNo] = useState(((sessionStorage.getItem("curTabNo") + "") == "null") ? 1 : sessionStorage.getItem("curTabNo")); //현재 탭번호
 
@@ -393,7 +393,6 @@ function StepMain() {
                                         </tr>
                                     </tbody>
                                 </table>
-
                                 {resultArr.length > 0 ? <>
                                     <div className='searchPanel_resultArea'>
                                         <div className='resultCntArea'>Result: {resultArr.length}</div>
@@ -411,7 +410,7 @@ function StepMain() {
 
                 </div>
 
-                {//Search Tab===========================================================================================
+                {//System management Tab===========================================================================================
                     curTabNo == 3 ? <>
 
                     </> : ""
