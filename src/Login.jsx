@@ -83,7 +83,7 @@ function Login() {
 
                     </div>
                     <div>
-                        <div className={!spinningFast ? "fadein" : "fadeout"}>TGraphQL + STEP</div>
+                        <div className={!spinningFast ? "fadein" : "fadeout"}>GraphQL + STEP</div>
                         <div className='loginMsg' style={{ visibility: msg != "" ? "visible" : "hidden" }}>
                             {msg}
                         </div>
