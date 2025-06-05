@@ -8,8 +8,8 @@ export default defineConfig({
 
 
   plugins: [react()],
-  base: "",
   server: {
+    port: 3000,
     proxy: {
       "/api": {
         target: "https://glink.glovis.net",
@@ -17,7 +17,7 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
       "/lbldomain": {
-        target: "https://lbl-dev.mdm.stibosystems.com",
+        target: "https://lbl-dev.mdm.stibosystems.com/",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/lbldomain/, ""),
         secure: true,

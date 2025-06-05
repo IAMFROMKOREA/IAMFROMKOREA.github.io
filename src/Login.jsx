@@ -14,7 +14,7 @@ function Login() {
 
 
     if (sessionStorage.getItem("stepId") + "" != "null") {
-        window.location.href = "/StepMain";
+        window.location.href = "/";
     }
 
     async function doLogin() {

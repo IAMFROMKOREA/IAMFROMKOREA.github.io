@@ -12,7 +12,7 @@ export const TreeViewContext = createContext();
 
 function StepMain() {
 
-
+    console.log("stepmain")
     const [detailData, setDetailData] = useState({ id: "" });
     const [init, setInit] = useState(false);  //화면 최초 로딩시 데이터 추출유무
     const [entityData, setEntityData] = useState({}); //entity 루트

@@ -290,7 +290,7 @@ async function callGraphQL(query, variables, callBack) {
     query = query.replaceAll("#WORKSPACE#", "\"" + workSpace + "\"");
     let token = await getToken(setpId, stepPassword);
     await axios
-        .post("/lbldomain/graphqlv2/graphql", { "query": query, "variables": variables }, { headers: { Authorization: token } }).then((response) => {
+        .post("https://lbl-dev.mdm.stibosystems.com/graphqlv2/graphql", { "query": query, "variables": variables }, { headers: { Authorization: token } }).then((response) => {
             callBack(response.data);
         }).catch((err) => {
             console.log("callGraphQLERR==" + err)
@@ -304,7 +304,7 @@ async function getExtensionInfo(source, callBack) {
     const stepPassword = sessionStorage.getItem("stepPassword");
     let token = await getToken(setpId, stepPassword);
     await axios
-        .get("/lbldomain/system-management/step/extensions", { params: { soruce: source }, headers: { Authorization: token } }).then((response) => {
+        .get("https://lbl-dev.mdm.stibosystems.com/system-management/step/extensions", { params: { soruce: source }, headers: { Authorization: token } }).then((response) => {
             callBack(response);
         }).catch((err) => {
             console.log("call getExtensionInfo==" + err);
@@ -318,7 +318,7 @@ async function putExtensionInfo(body, callBack) {
     const stepPassword = sessionStorage.getItem("stepPassword");
     let token = await getToken(setpId, stepPassword);
     await axios
-        .put("/lbldomain/system-management/step/extensions", body, { headers: { Authorization: token } }).then((response) => {
+        .put("https://lbl-dev.mdm.stibosystems.com/system-management/step/extensions", body, { headers: { Authorization: token } }).then((response) => {
             callBack(response);
         }).catch((err) => {
             console.log("call putExtensionInfo==" + err)
@@ -332,7 +332,7 @@ async function putExtensionInfo(body, callBack) {
 
 async function getToken(stepId, stepPassword) {
     let token = "";
-    let url = "/lbldomain/graphqlv2/auth?userId=#STEPID#&password=#STEPPASSWORD#";
+    let url = "https://lbl-dev.mdm.stibosystems.com/graphqlv2/auth?userId=#STEPID#&password=#STEPPASSWORD#";
     url = url.replaceAll("#STEPID#", stepId).replaceAll("#STEPPASSWORD#", stepPassword);
     await axios
         .post(url, {}, { headers: { "Content-Type": "application/x-www-form-urlencoded" } }).then((response) => {
