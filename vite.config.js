@@ -17,9 +17,11 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
       "/lbldomain": {
-        target: "https://lbl-dev.mdm.stibosystems.com/",
+        target: "https://lbl-dev.mdm.stibosystems.com",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/lbldomain/, ""),
+        secure: true,
+        ws: true
       }
     }
   }
