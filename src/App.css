@@ -39,14 +39,14 @@ input[type="checkbox"] {
   display: flex;
   justify-content: start;
   align-items: center;
-  background-color: #93d4e0;
+  background-color: whitesmoke;
   color: black;
-  font-size: 30px;
+  font-size: 40px;
+  font-weight: 400;
   padding: 5px;
   border-style: solid;
-  border-width: 0px;
-  border-bottom-width: 1px;
-  border-bottom-color: #e0eaec;
+  border-width: 2px;
+  border-color: white;
 
 }
 

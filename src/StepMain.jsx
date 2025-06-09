@@ -268,7 +268,7 @@ function StepMain() {
             </div>
             <div className='commonArea'>
                 {
-                    curTabNo < 2 ? <>
+                    curTabNo < 3 ? <>
                         <div className='workSpaceArea'>
                             <input type="checkbox" id="workSpaceCheck" style={{ display: "none" }} checked={isMainWS == "true" ? false : true} onChange={changeWorkSpace} />
                             <label htmlFor="workSpaceCheck" className='workSpaceSlide'>
