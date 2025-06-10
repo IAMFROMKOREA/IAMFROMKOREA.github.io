@@ -426,10 +426,11 @@ input[type="checkbox"] {
   align-items: center;
   background: whitesmoke;
   color: black;
+  border-color: #2ba1b1;
   border-style: solid;
   border-width: 1px;
   border-radius: 5px;
-  padding: 10px;
+  padding: 5px;
 }
 
 .custombtn,
@@ -445,6 +446,19 @@ input[type="checkbox"] {
 
 .closebtn {
   width: 100px;
+}
+
+.custombtn:hover,
+.closebtn:hover {
+  transition: all 0.2s linear;
+  color: #E10098;
+}
+
+.popupTop {
+  display: flex;
+  justify-content: end;
+  cursor: pointer;
+
 }
 
 .rotating {
@@ -593,6 +607,11 @@ button:hover {
   font-size: 13px;
   position: absolute;
   top: 5px;
+}
+
+.main_left:has([id='areaControl']:checked)+.main_right .locationArea,
+.main_left:has([id='areaControl']:checked)+.main_right .top-btn-container {
+  display: none;
 }
 
 /* .top-btn {
@@ -826,6 +845,7 @@ button:hover {
 }
 
 .basicBtn {
+  transition: all 0.5s linear;
   display: flex;
   align-items: end;
   cursor: pointer;
@@ -844,6 +864,7 @@ button:hover {
 
 .loginStepBtn:hover,
 .basicBtn:hover {
+  transition: all 0.2s linear;
   color: #E10098 !important;
 }
 

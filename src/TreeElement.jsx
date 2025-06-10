@@ -225,9 +225,16 @@ function TreeElement(props) {
             {
                 showPopup ? <>
                     <div className='objTypeSelect' style={{ display: showPopup ? "" : "none" }}>
+
                         <div>
+                            <div className='popupTop' onClick={() => setShowPopup(false)}>
+                                <img src="/icon/close.svg" width={15}></img>
+                            </div>
                             {parentData.objectType.children.length > 0 ? <>
+
                                 <div>Select Object Type</div>
+
+
                                 <div>
                                     {parentData.objectType.children.map((obj) => {
                                         return (
@@ -241,9 +248,7 @@ function TreeElement(props) {
                                 <div>Can not Create Child Node.</div>
 
                             </>}
-                            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                <div className='closebtn' onClick={() => setShowPopup(false)}>close</div>
-                            </div>
+
                         </div>
                     </div>
                 </> : ""
