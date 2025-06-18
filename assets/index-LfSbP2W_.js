@@ -90,14 +90,14 @@ Error generating stack: `+l.message+`
     approvalStatus\r
     path { id name }\r
 `},Si={product:"Product",entity:"Entity"};function vh(i,c){let r=`query _query($condition: ConditionInput!){\r
-  data_entity:searchForEntities(context: "Context1", workspace: #WORKSPACE#, \r
+  data_entity:searchForEntities(context: "Context1", workspace: #WORKSPACE#, first:20,  \r
     condition: $condition\r
     ) {\r
     pageElements {\r
 `+Lt.basic+Lt.values+Lt.objectType+`    }\r
   }\r
   \r
-  data_product:searchForProducts(context: "Context1", workspace: #WORKSPACE#, \r
+  data_product:searchForProducts(context: "Context1", workspace: #WORKSPACE#, first:20,   \r
     condition: $condition\r
     ) {\r
     pageElements {\r
