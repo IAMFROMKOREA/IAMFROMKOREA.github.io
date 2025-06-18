@@ -233,8 +233,6 @@ function TreeElement(props) {
                             {parentData.objectType.children.length > 0 ? <>
 
                                 <div>Select Object Type</div>
-
-
                                 <div>
                                     {parentData.objectType.children.map((obj) => {
                                         return (

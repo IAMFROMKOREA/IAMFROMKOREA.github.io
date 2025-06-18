@@ -284,11 +284,11 @@ function getProductData(stepId, callBack) {
 
 async function callGraphQL(query, variables, callBack) {
     //const { setIsLoading } = useContext(AppContext);
-    const setpId = sessionStorage.getItem("stepId");
+    const stepId = sessionStorage.getItem("stepId");
     const stepPassword = sessionStorage.getItem("stepPassword");
     const workSpace = sessionStorage.getItem("isMainWS") == "true" ? "Main" : "Approved";
     query = query.replaceAll("#WORKSPACE#", "\"" + workSpace + "\"");
-    let token = await getToken(setpId, stepPassword);
+    let token = await getToken(stepId, stepPassword);
     await axios
         .post("https://lbl-dev.mdm.stibosystems.com/graphqlv2/graphql", { "query": query, "variables": variables }, { headers: { Authorization: token } }).then((response) => {
             callBack(response.data);

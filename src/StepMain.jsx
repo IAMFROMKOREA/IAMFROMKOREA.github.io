@@ -12,7 +12,7 @@ export const TreeViewContext = createContext();
 
 function StepMain() {
 
-    console.log("stepmain")
+
     const [detailData, setDetailData] = useState({ id: "" });
     const [init, setInit] = useState(false);  //화면 최초 로딩시 데이터 추출유무
     const [entityData, setEntityData] = useState({}); //entity 루트
@@ -29,6 +29,9 @@ function StepMain() {
     const [isMainWS, setIsMainWS] = useState(sessionStorage.getItem("isMainWS") + "");
     const [isCurSource, setIsCurSource] = useState(true);
     const [mainRefresh, setMainRefresh] = useState(false);
+
+    const [conditionIdOrName, setConditionIdorName] = useState("");
+    const [searchListByIdOrName, setSearchListByIdOrName] = useState([]);
 
 
     useEffect(() => {
@@ -177,6 +180,34 @@ function StepMain() {
 
     }
 
+
+    function doSearchDataByIdOrName(conditionValue) {
+        console.log(conditionValue)
+        if (conditionValue != null && conditionValue.length > 2) {
+            let conditions = [{ or: { conditions: [{ id: { queryString: conditionValue + "*", operator: "like" } }, { name: { queryString: conditionValue + "*", operator: "like" } }] } }];
+            searchData(conditions, (data) => {
+                let data_entity = data.data.data_entity.pageElements;
+                let data_product = data.data.data_product.pageElements;
+                let tempArr = [];
+
+                data_entity.map((obj) => {
+                    obj.superType = "entity";
+                    tempArr = [...tempArr, obj];
+                })
+                data_product.map((obj) => {
+                    obj.superType = "product";
+                    tempArr = [...tempArr, obj];
+                })
+                setSearchListByIdOrName(tempArr);
+
+            });
+        } else {
+            setSearchListByIdOrName([]);
+        }
+
+
+    }
+
     function callback_doSearchData(data) {
         let data_entity = data.data.data_entity.pageElements;
         let data_product = data.data.data_product.pageElements;
@@ -269,6 +300,19 @@ function StepMain() {
             <div className='commonArea'>
                 {
                     curTabNo < 3 ? <>
+                        <div style={{ position: "relative" }}>
+                            <input className='Input' type="text" value={conditionIdOrName} onChange={(e) => { setConditionIdorName(e.target.value); doSearchDataByIdOrName(e.target.value) }}></input>
+                            <div className='searchListByIdOrNameArea'>
+                                {searchListByIdOrName.length > 0 ? <>
+                                    {searchListByIdOrName.map(obj => {
+                                        return <div onClick={() => { setConditionIdorName(obj.id); setDetailData(obj) }}>
+                                            {obj.name}({obj.id})</div>
+                                    })}
+                                </>
+                                    : ""}
+                            </div>
+
+                        </div>
                         <div className='workSpaceArea'>
                             <input type="checkbox" id="workSpaceCheck" style={{ display: "none" }} checked={isMainWS == "true" ? false : true} onChange={changeWorkSpace} />
                             <label htmlFor="workSpaceCheck" className='workSpaceSlide'>

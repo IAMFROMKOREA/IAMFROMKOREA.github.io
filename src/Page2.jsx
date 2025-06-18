@@ -6,11 +6,12 @@ function Page2() {
 
     const isCall = useRef(0);
     const [data, setData] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
 
     function updateData(newData) {
-        if (isCall.current == 0) {
+        if (isLoading) {
             setData(newData);
-            isCall.current = 1;
+            setIsLoading(false);
         }
 
     }
@@ -18,6 +19,9 @@ function Page2() {
 
     return (
         <div>
+            <div style={{ cursor: "pointer" }} onClick={() => { setIsLoading(true); getCarData(updateData); }}>
+                <img src="/icon/refresh.svg" width={20} className={isLoading ? "spinning_fast" : ""}></img>
+            </div>
             <table className='tabStyle2'>
                 <tbody>
                     <tr>
@@ -32,7 +36,17 @@ function Page2() {
 
                     <tr>
                         <td>trackings</td>
-                        <td>{data.trackings}</td>
+                        <td>
+                            {data.trackings != undefined ? data.trackings.map((obj, index) => {
+                                return <table className='tabStyle2' style={{ fontWeight: index == 0 ? "bold" : "" }}>
+                                    <tr><td>date</td><td>{obj.dateTime}</td></tr>
+                                    <tr><td>description</td><td>{obj.description}</td></tr>
+                                    <tr><td>location</td><td>{obj.location}</td></tr>
+                                    <tr><td>status</td><td>{obj.status}</td></tr>
+                                    <tr><td colSpan={2}>&nbsp;</td></tr>
+                                </table>
+                            }) : <></>}
+                        </td>
                     </tr>
 
                     <tr>
@@ -61,7 +75,7 @@ function Page2() {
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </div >
 
     );
 }
