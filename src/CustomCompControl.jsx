@@ -1,6 +1,6 @@
 
 import { useContext, useEffect, useRef, useState } from 'react'
-import { getExtensionInfo, putExtensionInfo } from './ApiTest';
+import { doRestartServer, getExtensionInfo, putExtensionInfo } from './ApiTest';
 import { AppContext } from './App';
 
 function CustomCompControl(props) {
@@ -130,6 +130,19 @@ function CustomCompControl(props) {
 
 
     function restartServer() {
+        if (confirm("Server restart?")) {
+            setIsLoading(true);
+            doRestartServer((returnObj) => {
+                if (returnObj.data != undefined) {
+                    alert(returnObj.data.message);
+
+                } else {
+                    alert(returnObj);
+
+                }
+                setIsLoading(false);
+            })
+        }
 
     }
 
@@ -148,6 +161,7 @@ function CustomCompControl(props) {
                                 <th>version(As-Is)</th>
                             </> : <>
                                 <th>version(To-Be)</th>
+                                <th>status</th>
                             </>}
 
                             <th>recipe</th>
@@ -189,14 +203,17 @@ function CustomCompControl(props) {
                                             </div>
                                         </td>
                                         <td>
-                                            <div className={currentExtension.filter(element => element.name == obj.name)[0].version != obj.toBeVersion ? "changed" : ""}
-                                                style={{ textDecorationLine: obj.isDel ? "line-through" : "" }}
-                                            >
-                                                {obj.recipe}
-                                            </div>
-
+                                            {currentExtension.filter(element => element.name == obj.name).length > 0 ? <>
+                                                <div className={currentExtension.filter(element => element.name == obj.name)[0].version != obj.toBeVersion ? "changed" : "installed"}>
+                                                </div>
+                                            </> : <>
+                                                <div className='new'></div>
+                                            </>}
                                         </td>
                                         <td>
+                                            <div style={{ textDecorationLine: obj.isDel ? "line-through" : "" }}>
+                                                {obj.recipe}
+                                            </div>
                                         </td>
                                     </tr>
                                 } else {

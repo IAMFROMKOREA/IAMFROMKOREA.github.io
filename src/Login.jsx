@@ -3,6 +3,7 @@ import { useContext, useEffect, useReducer, useRef, useState } from 'react'
 import { getToken } from '/src/ApiTest'
 import { AppContext } from './App';
 import Page2 from './Page2';
+import axios from 'axios';
 
 
 function Login() {
@@ -11,6 +12,8 @@ function Login() {
     const [stepPassword, setStepPassword] = useState();
     const [msg, setMsg] = useState("");
     const [spinningFast, setSpinningFast] = useState(false);
+    //const { setIsLoading } = useContext(AppContext);
+
 
 
 
@@ -19,6 +22,15 @@ function Login() {
     }
 
     async function doLogin() {
+        console.log("login")
+
+        // await axios
+        //     .get("http://localhost:4000/getToken").then((response) => {
+        //         console.log(response)
+        //     }).catch((err) => {
+        //         console.log("callGraphQLERR==" + err)
+        //     });
+
         //setIsLoading(true)
         if (!checkValid()) {
             alert("'STEPID' & 'STEP PASSWORD' are required.");

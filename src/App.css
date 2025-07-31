@@ -7,7 +7,6 @@ body {
   margin: 0 auto;
   padding: 1rem;
   text-align: center;
-  background-color: #f5f5f5;
   color-scheme: whitesmoke;
 }
 
@@ -39,7 +38,6 @@ input[type="checkbox"] {
   display: flex;
   justify-content: start;
   align-items: center;
-  background-color: whitesmoke;
   color: black;
   font-size: 40px;
   font-weight: 400;
@@ -313,6 +311,10 @@ input[type="checkbox"] {
   background-color: white;
   color: black;
   text-align: start;
+}
+
+.tabStyle2 td>span {
+  text-wrap-mode: nowrap;
 }
 
 .condition {
@@ -1093,6 +1095,10 @@ input[id='decryption']:checked+.decryptedPw+.decryptingBtn {
   text-wrap-mode: nowrap;
 }
 
+.searchListByIdOrNameArea {
+  right: 0px;
+}
+
 .attListArea>div,
 .attValueListArea>div,
 .searchListByIdOrNameArea>div {
@@ -1264,8 +1270,34 @@ input[id='sourceSelectCheck']:checked+.sourceSelectSlide::after {
   background: url('/icon/calculator.svg');
 }
 
-.changed {
-  background-color: #f5d9eb;
+.installed {}
+
+.changed {}
+
+.new {}
+
+.changed::before,
+.new::before,
+.installed:before {
+  font-size: 13px;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.changed::before {
+  color: green;
+  content: 'Update';
+}
+
+
+.new::before {
+  color: #E10098;
+  content: 'New';
+}
+
+.installed::before {
+  color: gray;
+  content: 'Installed';
 }
 
 .extensionBottom {

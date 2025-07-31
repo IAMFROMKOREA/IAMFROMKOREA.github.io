@@ -2,10 +2,12 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import TreeElement from './TreeElement';
 import DetailInfo from './DetailInfo';
-import { cloneObject, getData, getEntityData, getProductData, scrollToCurId, searchAttribute, searchData } from './ApiTest';
+import { cloneObject, getData, getEntityData, getProductData, scrollToCurId, searchAttribute, searchData, searchDataByIdOrName } from './ApiTest';
 import ScrollToTop from './ScrollToTop';
 import { AppContext } from './App';
 import CustomCompControl from './CustomCompControl';
+
+
 
 
 export const TreeViewContext = createContext();
@@ -20,7 +22,7 @@ function StepMain() {
     const curTabArea = document.getElementById('curTabArea');//top 버튼 클릭시 상단이동
     const [treeAreaWidth, setTreeAreaWidth] = useState(500);
     const { setIsLoading } = useContext(AppContext);
-    const [curTabNo, setCurTabNo] = useState(((sessionStorage.getItem("curTabNo") + "") == "null") ? 1 : sessionStorage.getItem("curTabNo")); //현재 탭번호
+    const [curTabNo, setCurTabNo] = useState(((sessionStorage.getItem("curTabNo") + "") == "null") ? 3 : sessionStorage.getItem("curTabNo")); //현재 탭번호
 
     const [conditionArr, setConditionArr] = useState([{ id: "id", value: "" }, { id: "name", value: "" }]); //조회조건
     const [resultArr, setResultArr] = useState([]); //조회 결과리스트
@@ -182,10 +184,8 @@ function StepMain() {
 
 
     function doSearchDataByIdOrName(conditionValue) {
-        console.log(conditionValue)
         if (conditionValue != null && conditionValue.length > 2) {
-            let conditions = [{ or: { conditions: [{ id: { queryString: conditionValue + "*", operator: "like" } }, { name: { queryString: conditionValue + "*", operator: "like" } }] } }];
-            searchData(conditions, (data) => {
+            searchDataByIdOrName(conditionValue, (data) => {
                 let data_entity = data.data.data_entity.pageElements;
                 let data_product = data.data.data_product.pageElements;
                 let tempArr = [];
@@ -297,15 +297,17 @@ function StepMain() {
                 </div>
 
             </div>
+            {//Main/Approved, 검색영역===================================================================================================================
+            }
             <div className='commonArea'>
                 {
                     curTabNo < 3 ? <>
-                        <div style={{ position: "relative" }}>
-                            <input className='Input' type="text" value={conditionIdOrName} onChange={(e) => { setConditionIdorName(e.target.value); doSearchDataByIdOrName(e.target.value) }}></input>
+                        <div style={{ position: "relative", marginRight: "10px" }}>
+                            <input className='Input' style={{ width: "250px" }} type="text" value={conditionIdOrName} onChange={(e) => { setConditionIdorName(e.target.value); doSearchDataByIdOrName(e.target.value) }}></input>
                             <div className='searchListByIdOrNameArea'>
                                 {searchListByIdOrName.length > 0 ? <>
                                     {searchListByIdOrName.map(obj => {
-                                        return <div onClick={() => { setConditionIdorName(obj.id); setDetailData(obj) }}>
+                                        return <div onClick={() => { setConditionIdorName(obj.id); setSearchListByIdOrName([]); setDetailData(obj) }}>
                                             {obj.name}({obj.id})</div>
                                     })}
                                 </>
@@ -330,9 +332,6 @@ function StepMain() {
                         </div>
                     </>
                 }
-
-
-
             </div>
             <div style={{ display: "flex" }}>
 

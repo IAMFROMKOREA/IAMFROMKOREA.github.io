@@ -332,7 +332,7 @@ async function getExtensionInfo(source, callBack) {
     const stepPassword = sessionStorage.getItem("stepPassword");
     let token = await getToken(setpId, stepPassword);
     await axios
-        .get("https://lbl-dev.mdm.stibosystems.com/system-management/step/extensions", { params: { source: source }, headers: { Authorization: token } }).then((response) => {
+        .get("https://lbl-dev.mdm.stibosystems.com/system-management/step/extensions", { params: { soruce: source }, headers: { Authorization: token } }).then((response) => {
             callBack(response);
         }).catch((err) => {
             console.log("call getExtensionInfo==" + err);
@@ -352,21 +352,6 @@ async function putExtensionInfo(body, callBack) {
             console.log("call putExtensionInfo==" + err)
             callBack(err);
         });
-}
-
-
-async function doRestartServer(callBack) {
-    const setpId = sessionStorage.getItem("stepId");
-    const stepPassword = sessionStorage.getItem("stepPassword");
-    let token = await getToken(setpId, stepPassword);
-    await axios
-        .post("https://lbl-dev.mdm.stibosystems.com/system-management/step/restart", {}, { headers: { Authorization: token } }).then((response) => {
-            callBack(response);
-        }).catch((err) => {
-            console.log("call doRestartServer==" + err)
-            callBack(err);
-        });
-    return token;
 }
 
 
@@ -437,6 +422,5 @@ function scrollToCurId(stepId) {
 export {
     getData, getCarData, getEntityData, getToken, cloneObject, getProductData, getTopEntityRoot, createEntityData,
     createData, createProductData, setNodeSimpleValue, setNodeValueById, setNodeName, searchData, searchAttribute,
-    setPathChildDataToSession, scrollToCurId, deleteData, getExtensionInfo, putExtensionInfo, searchDataByIdOrName,
-    doRestartServer
+    setPathChildDataToSession, scrollToCurId, deleteData, getExtensionInfo, putExtensionInfo, searchDataByIdOrName
 };

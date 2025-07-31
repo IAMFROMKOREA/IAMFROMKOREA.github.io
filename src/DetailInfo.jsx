@@ -177,10 +177,11 @@ function DetailInfo(props) {
                                         {curData.path.map((element, index) => {
                                             return (
                                                 <span className='pathlink' onClick={() => { getDetailData(element.id) }}>
+                                                    {element.name}({element.id})
                                                     {curData.path.length - 1 == index ? <>
-                                                        {element.name}({element.id})
+                                                        ""
                                                     </> : <>
-                                                        {element.name}({element.id})⨠
+                                                        <span style={{ color: "orange" }}>⨠</span>
                                                     </>}
 
                                                 </span>
