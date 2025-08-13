@@ -211,7 +211,7 @@ function CustomCompControl(props) {
                                             </>}
                                         </td>
                                         <td>
-                                            <div style={{ textDecorationLine: obj.isDel ? "line-through" : "" }}>
+                                            <div className='recipe' style={{ textDecorationLine: obj.isDel ? "line-through" : "" }}>
                                                 {obj.recipe}
                                             </div>
                                         </td>
@@ -221,8 +221,9 @@ function CustomCompControl(props) {
                                         <td>{index + 1}</td>
                                         <td></td>
                                         <td></td>
+                                        <td><div className="new"></div></td>
                                         <td>
-                                            <div className="changed">
+                                            <div>
                                                 <input type="text" className='Input recipeInput' value={obj.recipe} onChange={(e) => changeRecipe(index, e)} />
                                             </div>
 

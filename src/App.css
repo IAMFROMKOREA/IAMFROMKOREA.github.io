@@ -227,13 +227,15 @@ input[type="checkbox"] {
   border-bottom-style: solid;
   border-bottom-width: 1px;
   border-bottom-color: lightgray;
-  text-wrap-mode: none;
+  text-wrap-mode: nowrap;
 }
 
 .tabStyle1 td:nth-child(2) {
   text-align: left;
   padding-left: 10px;
 }
+
+
 
 /* .detailPop {
   position: fixed;
@@ -1299,6 +1301,18 @@ input[id='sourceSelectCheck']:checked+.sourceSelectSlide::after {
   color: gray;
   content: 'Installed';
 }
+
+
+.tabStyle1>tbody>tr>td:has(.changed)+td>.recipe {
+  color: green;
+}
+
+
+.tabStyle1>tbody>tr>td:has(.new)+td>.recipe {
+  color: #E10098;
+}
+
+
 
 .extensionBottom {
   display: flex;

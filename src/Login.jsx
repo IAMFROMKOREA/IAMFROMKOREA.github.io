@@ -4,12 +4,14 @@ import { getToken } from '/src/ApiTest'
 import { AppContext } from './App';
 import Page2 from './Page2';
 import axios from 'axios';
+import { getTokenWithDomain } from './ApiTest';
 
 
 function Login() {
 
     const [stepId, setStepId] = useState();
     const [stepPassword, setStepPassword] = useState();
+    const [domain, setDomain] = useState("https://lbl-dev.mdm.stibosystems.com");
     const [msg, setMsg] = useState("");
     const [spinningFast, setSpinningFast] = useState(false);
     //const { setIsLoading } = useContext(AppContext);
@@ -33,18 +35,19 @@ function Login() {
 
         //setIsLoading(true)
         if (!checkValid()) {
-            alert("'STEPID' & 'STEP PASSWORD' are required.");
+            alert("'STEPID' & 'STEP PASSWORD'& 'Domain' are required.");
             return;
         }
 
         setSpinningFast(true);
-        const token = await getToken(stepId, stepPassword);
+        const token = await getTokenWithDomain(stepId, stepPassword, domain);
 
         if (token != "") {
             setMsg("Login Success.");
             sessionStorage.setItem("stepId", stepId);
             sessionStorage.setItem("stepPassword", stepPassword);
             sessionStorage.setItem("isMainWS", true);
+            sessionStorage.setItem("domain", domain);
             window.location.href = "/";
         } else {
             setMsg("Invalid UserId and Password.");
@@ -56,7 +59,10 @@ function Login() {
 
     function checkValid() {
         let isValid = true;
-        if (stepId == null || stepId.length < 1 || stepPassword == null || stepPassword.length < 1) {
+        if (stepId == null || stepId.length < 1
+            || stepPassword == null || stepPassword.length < 1
+            || domain == null || domain.length < 1
+        ) {
             isValid = false;
         }
         return isValid;
@@ -74,17 +80,27 @@ function Login() {
                             <div>
                                 <input type="text" placeholder='STEP ID' className='Input loginInput' value={stepId} onChange={(e) => { setStepId(e.target.value) }}></input>
                             </div>
+
                             <div style={{ position: "relative" }}>
 
                                 <input type="password" placeholder='STEP PASSWORD' className='Input loginInput' value={stepPassword}
                                     onKeyDown={(e) => { if (e.key == "Enter") { doLogin(); } }}
                                     onChange={(e) => { setStepPassword(e.target.value) }}></input>
 
-                            </div>
-                            <input type='checkbox' id="decryption" style={{ display: "none" }} />
-                            <div className='decryptedPw'>{stepPassword}</div>
-                            <label for="decryption" className='decryptingBtn'>↹</label>
+                                <label for="decryption" className='decryptingBtn'>↹</label>
+                                <input type='checkbox' id="decryption" style={{ display: "none" }} />
+                                <div className='decryptedPw'>{stepPassword}</div>
 
+                            </div>
+
+
+                            <div>
+                                <select className='Input' value={domain} onChange={setDomain} style={{ width: '300px' }}>
+                                    <option value="https://lbl-dev.mdm.stibosystems.com">LBL Dev</option>
+                                    <option value="https://lbl-qua.mdm.stibosystems.com">LBL QA</option>
+                                    <option value="https://lbl-prod.mdm.stibosystems.com">LBL PRD</option>
+                                </select>
+                            </div>
                         </div>
                         <div className='basicBtn loginStepBtn' onClick={doLogin} style={{ visibility: spinningFast ? "hidden" : "" }}>
                             <div><span>⨠</span></div>
