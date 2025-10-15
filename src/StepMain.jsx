@@ -346,10 +346,10 @@ function StepMain() {
                         curTabNo == 1 ? <>
                             <div className='treeArea' id="curTabArea" >
 
-                                {entityData.id != undefined ? <>
+                                {entityData !== null && entityData.id !== undefined ? <>
                                     <TreeElement parentData={entityData} superType={"entity"} area={curTabArea} />
                                 </> : ""}
-                                {productData.id != undefined ? <>
+                                {productData !== null && productData.id !== undefined ? <>
                                     <TreeElement parentData={productData} superType={"product"} area={curTabArea} />
                                 </> : ""}
 

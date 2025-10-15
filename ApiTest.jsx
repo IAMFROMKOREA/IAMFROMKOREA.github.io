@@ -332,7 +332,7 @@ async function getExtensionInfo(source, callBack) {
     const stepPassword = sessionStorage.getItem("stepPassword");
     let token = await getToken(setpId, stepPassword);
     await axios
-        .get("https://lbl-dev.mdm.stibosystems.com/system-management/step/extensions", { params: { soruce: source }, headers: { Authorization: token } }).then((response) => {
+        .get("https://lbl-dev.mdm.stibosystems.com/system-management/step/extensions", { params: { source: source }, headers: { Authorization: token } }).then((response) => {
             callBack(response);
         }).catch((err) => {
             console.log("call getExtensionInfo==" + err);

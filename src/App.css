@@ -228,6 +228,7 @@ input[type="checkbox"] {
   border-bottom-width: 1px;
   border-bottom-color: lightgray;
   text-wrap-mode: nowrap;
+  height: 30px;
 }
 
 .tabStyle1 td:nth-child(2) {

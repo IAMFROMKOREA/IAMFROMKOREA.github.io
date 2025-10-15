@@ -95,7 +95,7 @@ function Login() {
 
 
                             <div>
-                                <select className='Input' value={domain} onChange={setDomain} style={{ width: '300px' }}>
+                                <select className='Input' value={domain} onChange={(e) => { setDomain(e.target.value) }} style={{ width: '300px', textAlign: 'center' }}>
                                     <option value="https://lbl-dev.mdm.stibosystems.com">LBL Dev</option>
                                     <option value="https://lbl-qua.mdm.stibosystems.com">LBL QA</option>
                                     <option value="https://lbl-prod.mdm.stibosystems.com">LBL PRD</option>
