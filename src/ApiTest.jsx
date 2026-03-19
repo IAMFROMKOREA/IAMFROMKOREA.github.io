@@ -394,17 +394,19 @@ async function getToken(stepId, stepPassword) {
 }
 
 
-async function getTokenWithDomain(stepId, stepPassword, domain) {
+function getTokenWithDomain(stepId, stepPassword, domain, callBack) {
     let token = "";
     let url = domain + "/graphqlv2/auth?userId=#STEPID#&password=#STEPPASSWORD#";
     url = url.replaceAll("#STEPID#", stepId).replaceAll("#STEPPASSWORD#", stepPassword);
-    await axios
+    axios
         .post(url, {}, { headers: { "Content-Type": "application/x-www-form-urlencoded" } }).then((response) => {
             if (response.status == 200) {
                 token = "Bearer " + response.data;
-            }
+                callBack(token,"");
+            } 
+
         }).catch((err) => {
-            console.log("getTokenERR==" + err)
+            callBack("",err);
         });
     return token;
 }
