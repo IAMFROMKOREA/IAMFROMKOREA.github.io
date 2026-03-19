@@ -66,7 +66,8 @@ function Login() {
             sessionStorage.setItem("domain", domain);
             window.location.href = "/";
         } else {
-            setMsg(err+"");
+            console.log(err);
+            setMsg(err.response.data.message);
         }
         setSpinningFast(false);
     }
