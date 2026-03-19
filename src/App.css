@@ -228,6 +228,7 @@ input[type="checkbox"] {
   border-bottom-width: 1px;
   border-bottom-color: lightgray;
   text-wrap-mode: nowrap;
+  padding: 3px;
 }
 
 .tabStyle1 td:nth-child(2) {
@@ -442,7 +443,7 @@ input[type="checkbox"] {
   color: black;
   background-color: lightblue;
   margin-bottom: 2px;
-  padding: 3px;
+  padding: 5px;
   text-align: center;
 }
 
@@ -794,6 +795,30 @@ button:hover {
   color: #E10098;
 }
 
+.DelChk {
+  display: none;
+}
+
+.DelChkFalse,
+.DelChkTrue {
+  cursor: pointer;
+  width: 100px;
+  display: inline-block;
+  width: 20px;
+  text-align: center;
+}
+
+.DelChkFalse {
+  cursor: pointer;
+  color: lightgray;
+}
+
+.DelChkTrue {
+  cursor: pointer;
+  color: #E10098;
+  font-weight: bold;
+}
+
 .Input {
 
   border-width: 0px;
@@ -1012,7 +1037,19 @@ input[id='decryption']:checked+.decryptedPw+.decryptingBtn {
   background-color: #e0eaec;
 }
 
-.curDomain{
+.curDomain {
+  color: #E10098;
+}
+
+.lbl-dev{
+  color: green;
+}
+
+.lbl-qua{
+  color: blue;
+}
+
+.lbl-prod{
   color: #E10098;
 }
 

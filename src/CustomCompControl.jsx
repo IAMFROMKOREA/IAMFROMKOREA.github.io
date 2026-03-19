@@ -158,9 +158,9 @@ function CustomCompControl(props) {
                             <th>name</th>
 
                             {props.isCurSource ? <>
-                                <th>version(As-Is)</th>
+                                <th>version<br/>(As-Is)</th>
                             </> : <>
-                                <th>version(To-Be)</th>
+                                <th>version<br/>(To-Be)</th>
                                 <th>status</th>
                             </>}
 
@@ -198,8 +198,8 @@ function CustomCompControl(props) {
                                         <td>
                                             <div>
                                                 <input type="text" className="Input versionInput" value={obj.toBeVersion} onChange={(e) => { changeTobeVersion(index, e) }} />
-                                                <input type="checkbox" className='Input' id={obj.name + "_isDeleted"} value={obj.isDel} onChange={(e) => { changeIsDel(index, e) }} />
-                                                <label htmlFor={obj.name + "_isDeleted"}>Del</label>
+                                                <input type="checkbox" className='Input DelChk' id={obj.name + "_isDeleted"} value={obj.isDel} onChange={(e) => { changeIsDel(index, e) }} />
+                                                <label htmlFor={obj.name + "_isDeleted"} className={obj.isDel?'DelChkTrue':"DelChkFalse"}>X</label>
                                             </div>
                                         </td>
                                         <td>
