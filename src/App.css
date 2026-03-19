@@ -1012,6 +1012,10 @@ input[id='decryption']:checked+.decryptedPw+.decryptingBtn {
   background-color: #e0eaec;
 }
 
+.curDomain{
+  color: #E10098;
+}
+
 .tabArea>div {
   transition: all 0.5s linear;
   width: 24px;
