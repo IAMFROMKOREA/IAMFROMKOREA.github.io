@@ -34,6 +34,8 @@ function StepMain() {
 
     const [conditionIdOrName, setConditionIdorName] = useState("");
     const [searchListByIdOrName, setSearchListByIdOrName] = useState([]);
+    const [curDomain] = useState(sessionStorage.getItem("domain"));
+    const domainClsName = curDomain.replaceAll("https://","").replaceAll(".mdm.stibosystems.com","");
 
 
     useEffect(() => {
@@ -291,6 +293,7 @@ function StepMain() {
                 <div>
                     <img src="/graphql.png" width={"50"}></img>
                     <div>GraphQL + STEP</div>
+                    <div className={domainClsName}>[{curDomain}]</div>
                 </div>
                 <div className='basicBtn' onClick={doLogout}>
                     Logout

@@ -40,8 +40,24 @@ function Login() {
         }
 
         setSpinningFast(true);
-        const token = await getTokenWithDomain(stepId, stepPassword, domain);
+        getTokenWithDomain(stepId, stepPassword, domain, callback_doLogin);
 
+        // if (token != "") {
+        //     setMsg("Login Success.");
+        //     sessionStorage.setItem("stepId", stepId);
+        //     sessionStorage.setItem("stepPassword", stepPassword);
+        //     sessionStorage.setItem("isMainWS", true);
+        //     sessionStorage.setItem("domain", domain);
+        //     window.location.href = "/";
+        // } else {
+        //     setMsg("Login Failed.");
+        // }
+        //setIsLoading(false)
+
+
+    }
+
+    function callback_doLogin(token, err) {
         if (token != "") {
             setMsg("Login Success.");
             sessionStorage.setItem("stepId", stepId);
@@ -50,11 +66,10 @@ function Login() {
             sessionStorage.setItem("domain", domain);
             window.location.href = "/";
         } else {
-            setMsg("Invalid UserId and Password.");
+            console.log(err);
+            setMsg(err.response.data.message);
         }
-        //setIsLoading(false)
         setSpinningFast(false);
-
     }
 
     function checkValid() {
