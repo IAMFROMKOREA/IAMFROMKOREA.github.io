@@ -794,8 +794,9 @@ button:hover {
 }
 
 .loginMsg {
-  font-size: 15px;
-  color: #E10098;
+  font-size: 23px;
+  color: #e10098;
+  position: absolute;
 }
 
 .DelChk {
