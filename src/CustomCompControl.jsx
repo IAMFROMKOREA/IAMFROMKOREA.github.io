@@ -154,17 +154,17 @@ function CustomCompControl(props) {
                 <table className='tabStyle1'>
                     <thead>
                         <tr>
-                            <th>no</th>
-                            <th>name</th>
+                            <th>Seq</th>
+                            <th>Comp. Name</th>
 
                             {props.isCurSource ? <>
-                                <th>version<br/>(As-Is)</th>
+                                <th>Version<br />(As-Is)</th>
                             </> : <>
-                                <th>version<br/>(To-Be)</th>
-                                <th>status</th>
+                                <th>Version<br />(To-Be)</th>
+                                <th>Status</th>
                             </>}
 
-                            <th>recipe</th>
+                            <th>Recipe</th>
                             {!props.isCurSource ? <>
                                 <th></th>
                             </> : ""}
@@ -196,10 +196,12 @@ function CustomCompControl(props) {
                                         <td>{index + 1}</td>
                                         <td>{obj.name}</td>
                                         <td>
-                                            <div>
+                                            <div style={{display: 'flex'}}>
                                                 <input type="text" className="Input versionInput" value={obj.toBeVersion} onChange={(e) => { changeTobeVersion(index, e) }} />
-                                                <input type="checkbox" className='Input DelChk' id={obj.name + "_isDeleted"} value={obj.isDel} onChange={(e) => { changeIsDel(index, e) }} />
-                                                <label htmlFor={obj.name + "_isDeleted"} className={obj.isDel?'DelChkTrue':"DelChkFalse"}>X</label>
+                                                <div>
+                                                    <input type="checkbox" className='Input DelChk' id={obj.name + "_isDeleted"} value={obj.isDel} onChange={(e) => { changeIsDel(index, e) }} />
+                                                    <label htmlFor={obj.name + "_isDeleted"} className={obj.isDel ? 'DelChkTrue' : "DelChkFalse"}>X</label>
+                                                </div>
                                             </div>
                                         </td>
                                         <td>

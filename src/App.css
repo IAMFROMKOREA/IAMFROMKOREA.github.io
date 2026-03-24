@@ -444,8 +444,10 @@ input[type="checkbox"] {
   color: black;
   background-color: lightblue;
   margin-bottom: 2px;
-  padding: 5px;
+  padding: 3px;
   text-align: center;
+  font-weight: bold;
+  border: solid 2px #2ba1b1;
 }
 
 .closebtn {
@@ -807,6 +809,7 @@ button:hover {
   display: inline-block;
   width: 20px;
   text-align: center;
+  background-color: black;
 }
 
 .DelChkFalse {
@@ -1221,8 +1224,10 @@ input[id='decryption']:checked+.decryptedPw+.decryptingBtn {
   content: "Main";
 }
 
+
 .sourceSelectSlide::after {
   content: "Current";
+  font-weight: bold;
 }
 
 input[id='workSpaceCheck']:checked+.workSpaceSlide::after,
