@@ -205,12 +205,17 @@ function CustomCompControl(props) {
                                             </div>
                                         </td>
                                         <td>
-                                            {currentExtension.filter(element => element.name == obj.name).length > 0 ? <>
+                                        {obj.isDel === true?<>
+                                            <div className='del'></div>
+                                        </>:<>
+                                        {currentExtension.filter(element => element.name == obj.name).length > 0 ? <>
                                                 <div className={currentExtension.filter(element => element.name == obj.name)[0].version != obj.toBeVersion ? "changed" : "installed"}>
                                                 </div>
                                             </> : <>
                                                 <div className='new'></div>
                                             </>}
+                                        </>}
+                                            
                                         </td>
                                         <td>
                                             <div className='recipe' style={{ textDecorationLine: obj.isDel ? "line-through" : "" }}>

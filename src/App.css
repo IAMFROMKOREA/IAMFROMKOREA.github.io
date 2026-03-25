@@ -47,16 +47,16 @@ input[type="checkbox"] {
 }
 
 
-.loginLogo,
+/* .loginLogo,
 .loginLogospinning_fast {
   position: absolute;
-}
+} */
 
-.loginLogo {
+/* .loginLogo {
   top: -44px;
   left: 17px;
 
-}
+} */
 
 .loginLogospinning_fast {
   animation: loginLogospinning_fast 1s linear 0s infinite;
@@ -117,8 +117,6 @@ input[type="checkbox"] {
 
 .logoArea {
   position: relative;
-  width: 170px;
-  height: 50px;
 }
 
 .header>div:first-child {
@@ -1320,18 +1318,19 @@ input[id='sourceSelectCheck']:checked+.sourceSelectSlide::after {
   background: url('/icon/calculator.svg');
 }
 
-.installed {}
 
-.changed {}
-
-.new {}
-
+.del::before,
 .changed::before,
 .new::before,
 .installed:before {
   font-size: 13px;
   font-weight: bold;
   margin-left: 5px;
+}
+
+.del::before{
+  color: red;
+  content:"Delete";
 }
 
 .changed::before {
