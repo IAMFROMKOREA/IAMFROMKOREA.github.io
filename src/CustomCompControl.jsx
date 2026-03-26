@@ -208,10 +208,12 @@ function CustomCompControl(props) {
                                         {obj.isDel === true?<>
                                             <div className='del'></div>
                                         </>:<>
-                                        {currentExtension.filter(element => element.name == obj.name).length > 0 ? <>
+                                            {currentExtension.filter(element => element.name == obj.name).length > 0 ? 
+                                            <>
                                                 <div className={currentExtension.filter(element => element.name == obj.name)[0].version != obj.toBeVersion ? "changed" : "installed"}>
                                                 </div>
-                                            </> : <>
+                                            </> : 
+                                            <>
                                                 <div className='new'></div>
                                             </>}
                                         </>}
