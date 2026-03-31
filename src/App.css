@@ -883,8 +883,6 @@ button:hover {
 }
 
 .loginStepBtn {
-  position: absolute;
-  right: -90%;
   bottom: 0px;
   width: 100%;
 }
@@ -961,7 +959,6 @@ button:hover {
 }
 
 .inputArea {
-  width: 378px;
   display: block;
   position: relative;
 }

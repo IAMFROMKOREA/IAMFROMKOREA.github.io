@@ -88,6 +88,21 @@ function Login() {
     return (
         <>
             <div className='loginMain'>
+                <div className='loginSub loginRight'>
+                    <div style={{ position: "relative" }}>
+                        <div className="logoArea">
+                            <img className={!spinningFast ? "loginLogo" : "loginLogospinning_fast"} src="/graphql.png" width={"150"}></img>
+
+                        </div>
+                        <div>
+                            <div className={!spinningFast ? "fadein" : "fadeout"}>GraphQL + STEP</div>
+                            <div className='loginMsg' style={{ visibility: msg != "" ? "visible" : "hidden" }}>
+                                {msg}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
                 <div className='loginSub loginLeft'>
 
                     <div style={{ display: "flex", position: "relative" }}>
@@ -124,21 +139,7 @@ function Login() {
                         </div>
                     </div>
                 </div>
-                <div className='loginSub loginRight'>
-                    <div style={{ position: "relative" }}>
-                        <div className="logoArea">
-                            <img className={!spinningFast ? "loginLogo" : "loginLogospinning_fast"} src="/graphql.png" width={"150"}></img>
-
-                        </div>
-                        <div>
-                            <div className={!spinningFast ? "fadein" : "fadeout"}>GraphQL + STEP</div>
-                            <div className='loginMsg' style={{ visibility: msg != "" ? "visible" : "hidden" }}>
-                                {msg}
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+                
 
 
 
