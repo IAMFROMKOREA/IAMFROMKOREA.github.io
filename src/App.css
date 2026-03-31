@@ -117,6 +117,7 @@ input[type="checkbox"] {
 
 .logoArea {
   position: relative;
+  height: 150px;
 }
 
 .header>div:first-child {
@@ -782,7 +783,7 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: whitesmoke;
+  background-color: #cbe2e5;
   width: 50%;
 
 }
