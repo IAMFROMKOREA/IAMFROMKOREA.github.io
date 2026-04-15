@@ -46,6 +46,13 @@ input[type="checkbox"] {
 
 }
 
+.sectionLabel{
+  background-color: #cbe2e5;
+  color: black;
+  margin-top: 15px;
+
+}
+
 
 /* .loginLogo,
 .loginLogospinning_fast {
@@ -710,7 +717,8 @@ button:hover {
 
 .attTypeLabel {
   text-decoration-line: underline;
-  background: whitesmoke !important;
+  background: #e0eaec !important;
+  color: black;
   font-weight: bold;
 }
 
@@ -1270,7 +1278,27 @@ input[id='sourceSelectCheck']:checked+.sourceSelectSlide::after {
 .main_left:has(.searchArea)+.main_right .locationArea {
   display: none;
 }
+.tabMain{
+  display: flex;
+}
 
+.tabMain>.curTab,
+.tabMain>div:hover{
+  border: solid 1px #e10098;
+  border-bottom: 0px;
+  background-color: white;
+  color: black;
+  transition: all 1.0s linear;
+}
+.tabMain>div{
+  background-color: #2ba1b1;
+  color: white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  margin-right: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
 
 .locationArea:hover>.imgArea>img {
   top: 2px;

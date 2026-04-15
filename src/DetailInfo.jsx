@@ -12,6 +12,7 @@ function DetailInfo(props) {
     const { setDetailData, detailData, isMainWS, mainRefresh, setMainRefresh } = useContext(TreeViewContext);
     const { setIsLoading } = useContext(AppContext);
     const [flipStatus, setFilpStatus] = useState([true, true, true]);
+    const [curTab, setCurTab] = useState(0);
 
     useEffect(() => {
         setCurData(props.detailData);
@@ -119,8 +120,133 @@ function DetailInfo(props) {
     }
 
 
-    return (
-        <div>
+    function ATTNAME(props) {
+        const element = props.element;
+        return (
+            <div>
+                <div>
+                    {element.attribute.name != null && element.attribute.name.length > 0 ?
+                        <>{element.attribute.name}</> :
+                        <>({element.attribute.id})</>}
+                </div>
+                <div className={element.inherited ? "inherited" : ""}></div>
+                <div className={element.calculated ? "calculated" : ""}></div>
+            </div>
+        );
+    }
+    function ATTVALUE(props) {
+        const element = props.element;
+        return (
+            <>{element.attribute.listOfValuesBased ? <>
+                <select className="Input" key={element.attribute.id}
+                    value={element.values.length > 0 && element.values[0].valueId != null ? element.values[0].valueId : ""}
+                    onChange={(event) => { setValue(element.attribute.id, event.target.value, true) }}
+                    disabled={isMainWS == "true" && element.editable != false ? false : true}
+                >
+                    <option value=""></option>
+                    {element.attribute.listOfValues.valueEntries.pageElements.map((lov) => {
+                        return <option value={lov.valueId}>{lov.value}</option>;
+                    })}
+                </select>
+            </> : <>
+                <input className="Input" key={element.attribute.id} type="text" value={element.simpleValue == null ? "" : element.simpleValue} onChange={(event) => { setValue(element.attribute.id, event.target.value, false) }}
+                    style={{ width: "90%" }}
+                    disabled={isMainWS == "true" && element.editable != false ? false : true}
+                />
+            </>}
+            </>);
+    }
+
+
+    function TABMAIN() {
+        const tabArr = ["Basic", "Data Container"];
+        return (<>
+            <div className='tabMain'>
+                {tabArr.map((element, index) => {
+                    return (<div className={index == curTab ? 'curTab' : ''} onClick={e => { setCurTab(index) }}>{element}</div>)
+                })}
+            </div>
+            <div>
+                {
+                    curTab == 0 ? <TAB1></TAB1>
+                        : <>
+                            {curTab == 1 ? <TAB2></TAB2>
+                                : <></>}
+                        </>
+                }
+            </div>
+        </>
+        );
+    }
+
+
+    function TAB2() {
+        const dataContainers = curData.dataContainers;
+        if (dataContainers != undefined && dataContainers.length > 0) {
+            return (<>
+                {
+                    dataContainers.map(dataContainer => {
+                        return <DATACONTAINER dataContainer={dataContainer} />
+                    })
+                }
+
+            </>
+
+            );
+        } else {
+            return "";
+        }
+
+    }
+
+    function DATACONTAINER(props) {
+        const dataContainer = props.dataContainer;
+        if (dataContainer != undefined) {
+            const dataContainerType = dataContainer != undefined ?dataContainer.dataContainerType:null;            
+            const attList = dataContainerType !=undefined?dataContainerType.validAttributes.sort((a,b)=> a.name - b.name):[];
+            const dataContainers = dataContainer != undefined ? dataContainer.dataContainers : [];
+
+            return (
+                <>
+                    <div className='sectionLabel'>{dataContainer.dataContainerType.name}</div>
+                    <table className='tabStyle1'>
+                        <thead>
+                            <tr>
+                                {attList.map(validAttribute=>{
+                                    return(
+                                        <th>{validAttribute.name}</th>
+                                    );
+                                }) }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                dataContainers.map(obj=>{
+                                    return (
+                                        <tr>
+                                        {attList.map(validAttribute=>{
+                                            return <>
+                                            <td>                                                
+                                                <ATTVALUE element={obj.values.filter(value=>value.attribute.id==validAttribute.id)[0]}/>
+                                            </td>
+
+                                            </>
+                                        })}
+                                    </tr>
+                                    );
+                                })
+                            }
+                        </tbody>
+                    </table>
+                </>
+
+            )
+        }
+
+    }
+
+    function TAB1() {
+        return (
             <table className='tabStyle2'>
                 <tbody>
                     {(curData != undefined) && (curData.id != undefined && curData.id != "") ?
@@ -208,36 +334,10 @@ function DetailInfo(props) {
                                 {curData.values.filter((element) => element.attribute.specification == false).map((element) => (
                                     <tr>
                                         <td>
-                                            <div>
-                                                <div>
-                                                    {element.attribute.name != null && element.attribute.name.length > 0 ?
-                                                        <>{element.attribute.name}</> :
-                                                        <>({element.attribute.id})</>}
-                                                </div>
-                                                <div className={element.inherited ? "inherited" : ""}></div>
-                                                <div className={element.calculated ? "calculated" : ""}></div>
-                                            </div>
-
+                                            <ATTNAME element={element} />
                                         </td>
                                         <td>
-                                            {element.attribute.listOfValuesBased ? <>
-                                                <select className="Input" key={element.attribute.id}
-                                                    value={element.values.length > 0 && element.values[0].valueId != null ? element.values[0].valueId : ""}
-                                                    onChange={(event) => { setValue(element.attribute.id, event.target.value, true) }}
-                                                    disabled={isMainWS == "true" && element.editable != false ? false : true}
-                                                >
-                                                    <option value=""></option>
-                                                    {element.attribute.listOfValues.valueEntries.pageElements.map((lov) => {
-                                                        return <option value={lov.valueId}>{lov.value}</option>;
-                                                    })}
-                                                </select>
-                                            </> : <>
-                                                <input className="Input" key={element.attribute.id} type="text" value={element.simpleValue == null ? "" : element.simpleValue} onChange={(event) => { setValue(element.attribute.id, event.target.value, false) }}
-                                                    style={{ width: "90%" }}
-                                                    disabled={isMainWS == "true" && element.editable != false ? false : true}
-                                                />
-                                            </>}
-
+                                            <ATTVALUE element={element} />
                                         </td>
                                     </tr>
                                 ))}
@@ -259,36 +359,10 @@ function DetailInfo(props) {
                                 {curData.values.filter((element) => element.attribute.specification == true).sort((a, b) => b.inherited - a.inherited).map((element) => (
                                     <tr>
                                         <td>
-                                            <div>
-                                                <div>
-                                                    {element.attribute.name != null && element.attribute.name.length > 0 ?
-                                                        <>{element.attribute.name}</> :
-                                                        <>({element.attribute.id})</>}
-                                                </div>
-                                                <div className={element.inherited ? "inherited" : ""}></div>
-                                                <div className={element.calculated ? "calculated" : ""}></div>
-                                            </div>
+                                            <ATTNAME element={element} />
                                         </td>
                                         <td>
-                                            {element.attribute.listOfValuesBased ? <>
-                                                <select className="Input" key={element.attribute.id}
-                                                    value={element.values.length > 0 && element.values[0].valueId != null ? element.values[0].valueId : ""}
-                                                    onChange={(event) => { setValue(element.attribute.id, event.target.value, true) }}
-                                                    disabled={isMainWS == "true" && element.editable != false ? false : true}
-                                                >
-                                                    <option value=""></option>
-                                                    {element.attribute.listOfValues.valueEntries.pageElements.map((lov) => {
-                                                        return <option value={lov.valueId}>{lov.value}</option>;
-                                                    })}
-                                                </select>
-                                            </> : <>
-                                                <input className="Input" key={element.attribute.id} type="text"
-                                                    value={element.simpleValue == null ? "" : element.simpleValue}
-                                                    onChange={(event) => { setValue(element.attribute.id, event.target.value, false) }}
-                                                    disabled={isMainWS == "true" && element.editable != false ? false : true}
-                                                    style={{ width: "90%" }} />
-                                            </>}
-
+                                            <ATTVALUE element={element} />
                                         </td>
                                     </tr>
                                 ))}
@@ -300,6 +374,15 @@ function DetailInfo(props) {
                 </tbody>
 
             </table>
+        )
+    }
+
+    return (
+        <div>
+            {curData != null && curData.superType != null ? <>
+                <TABMAIN />
+
+            </> : ""}
 
         </div>
 

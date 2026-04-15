@@ -40,7 +40,36 @@ const tag = {
         + "    currentRevision\r\n"
         + "    currentRevisionLastEdited\r\n"
         + "    approvalStatus\r\n"
-        + "    path { id name }\r\n"
+        + "    path { id name }\r\n",
+    dataContainers: "  dataContainers{\r\n"
+					+ "        dataContainerType{\r\n"
+					+ "          id\r\n"
+					+ "          name\r\n"
+                    + "          validAttributes{\r\n"
+                    + "             id\r\n"
+                    + "             name\r\n"
+                    + "          }\r\n"
+					+ "        }\r\n"
+					+ "        dataContainers{\r\n"
+					+ "          values{\r\n"
+					+ "            attribute{\r\n"
+					+ "              id\r\n"
+					+ "              name\r\n"
+					+ "              multivalued\r\n"
+					+ "              validListOfValuesEntries{\r\n"
+					+ "                pageElements{\r\n"
+					+ "                  value\r\n"
+					+ "                  valueId\r\n"
+					+ "                }  \r\n"
+					+ "              }\r\n"
+					+ "            }\r\n"
+					+ "            simpleValue            \r\n"
+					+ "            values{\r\n"
+					+ "              valueId\r\n"
+					+ "            }\r\n"
+					+ "          }\r\n"
+					+ "        }\r\n"
+					+ "      }"
 
 }
 
@@ -71,6 +100,7 @@ function searchData(conditions, callBack) {
         + "    pageElements {\r\n"
         + tag.basic
         + tag.values
+        + tag.dataContainers
         + tag.objectType
         + "    }\r\n"
         + "  }\r\n"
@@ -81,6 +111,7 @@ function searchData(conditions, callBack) {
         + "    pageElements {\r\n"
         + tag.basic
         + tag.values
+        + tag.dataContainers
         + tag.objectType
         + "    }\r\n"
         + "  }\r\n"
@@ -106,6 +137,7 @@ function searchDataByIdOrName(conditionValue, callBack) {
         + "    pageElements {\r\n"
         + tag.basic
         + tag.values
+        + tag.dataContainers
         + tag.objectType
         + "    }\r\n"
         + "  }\r\n"
@@ -116,6 +148,7 @@ function searchDataByIdOrName(conditionValue, callBack) {
         + "    pageElements {\r\n"
         + tag.basic
         + tag.values
+        + tag.dataContainers
         + tag.objectType
         + "    }\r\n"
         + "  }\r\n"
@@ -256,6 +289,7 @@ function getEntityData(stepId, callBack) {
         + "  entity(context: \"Context1\", workspace: #WORKSPACE#, id: $id) {\r\n"
         + tag.basic
         + tag.values
+        + tag.dataContainers
         + tag.objectType
         + "    children {\r\n"
         + "      pageElements {\r\n"
@@ -294,6 +328,7 @@ function getProductData(stepId, callBack) {
         + "  product(context: \"Context1\", workspace: #WORKSPACE#, id: $id) {\r\n"
         + tag.basic
         + tag.values
+        + tag.dataContainers
         + tag.objectType
         + "    children {\r\n"
         + "      pageElements {\r\n"
@@ -402,11 +437,11 @@ function getTokenWithDomain(stepId, stepPassword, domain, callBack) {
         .post(url, {}, { headers: { "Content-Type": "application/x-www-form-urlencoded" } }).then((response) => {
             if (response.status == 200) {
                 token = "Bearer " + response.data;
-                callBack(token,"");
-            } 
+                callBack(token, "");
+            }
 
         }).catch((err) => {
-            callBack("",err);
+            callBack("", err);
         });
     return token;
 }
