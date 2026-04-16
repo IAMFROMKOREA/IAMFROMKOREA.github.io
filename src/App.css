@@ -216,7 +216,7 @@ input[type="checkbox"] {
 }
 
 .tabStyle1 {
-  width: 1300px;
+  width: 100%;
 }
 
 .tabStyle1 tr {
@@ -281,7 +281,7 @@ input[type="checkbox"] {
 } */
 
 .tabStyle2 {
-  width: 1300px;
+  width: 100%;
   text-align: start;
   background-color: whitesmoke;
 
@@ -1251,6 +1251,7 @@ input[id='decryption']:checked+.decryptedPw+.decryptingBtn {
 
 .workSpaceSlide::after {
   content: "Main";
+  font-weight: bold;
 }
 
 
