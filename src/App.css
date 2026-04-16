@@ -708,14 +708,16 @@ button:hover {
 .supertype_c::after,
 .supertype_e::after,
 .supertype_p::after {
-  border: solid 1px lightslategray;
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
+  /* border: solid 1px lightslategray; */
+  /* border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px; */
+  clip-path: polygon(68% 0, 85% 51%, 68% 100%, 0 99%, 0 0);;
   width: 20px;
+  font-size: 12px;
   font-weight: bold;
   margin-right: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-left: 3px;
+  padding-right: 15px;
   color: black;
 }
 
