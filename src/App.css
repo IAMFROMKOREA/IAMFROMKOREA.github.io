@@ -46,11 +46,17 @@ input[type="checkbox"] {
 
 }
 
-.sectionLabel{
-  background-color: #cbe2e5;
+.sectionLabel {
   color: black;
   margin-top: 15px;
+  text-align: left;
+  padding: 3px;
+  text-decoration: underline;
 
+}
+
+.sectionLabel::before {
+  content: "▶";
 }
 
 
@@ -210,7 +216,7 @@ input[type="checkbox"] {
 }
 
 .tabStyle1 {
-  width: 100%;
+  width: 1300px;
 }
 
 .tabStyle1 tr {
@@ -275,7 +281,7 @@ input[type="checkbox"] {
 } */
 
 .tabStyle2 {
-  width: 100%;
+  width: 1300px;
   text-align: start;
   background-color: whitesmoke;
 
@@ -579,6 +585,7 @@ input[type="checkbox"] {
   width: 100%;
   overflow-y: scroll;
   height: 770px;
+  overflow-x: scroll;
 }
 
 button {
@@ -1126,7 +1133,7 @@ input[id='decryption']:checked+.decryptedPw+.decryptingBtn {
 
 .main_right {
   display: flex;
-  width: 100%;
+  min-width: 1000px;
 }
 
 .main_left:has(input[id='areaControl']:checked) {
@@ -1296,12 +1303,13 @@ input[id='sourceSelectCheck']:checked+.sourceSelectSlide::after {
 .main_left:has(.searchArea)+.main_right .locationArea {
   display: none;
 }
-.tabMain{
+
+.tabMain {
   display: flex;
 }
 
 
-.tabMain>div{
+.tabMain>div {
   border: solid 1px lightgray;
   background-color: #84b4bb;
   color: white;
@@ -1313,13 +1321,15 @@ input[id='sourceSelectCheck']:checked+.sourceSelectSlide::after {
   padding-bottom: 3px;
   cursor: pointer;
 }
-.tabMain>div:hover{
+
+.tabMain>div:hover {
   border-bottom: 0px;
   background-color: #93c3ca;
   color: black;
   transition: all 0.5s linear;
 }
-.tabMain>.curTab{
+
+.tabMain>.curTab {
   background-color: #2ba1b1;
   border-bottom: 0px;
   color: black;
@@ -1382,9 +1392,9 @@ input[id='sourceSelectCheck']:checked+.sourceSelectSlide::after {
   margin-left: 5px;
 }
 
-.del::before{
+.del::before {
   color: red;
-  content:"Delete";
+  content: "Delete";
 }
 
 .changed::before {
