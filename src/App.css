@@ -697,6 +697,7 @@ button:hover {
   color: #E10098;
 }
 
+.supertype_a::after,
 .supertype_c::after,
 .supertype_e::after,
 .supertype_p::after {
@@ -704,6 +705,11 @@ button:hover {
   width: 20px;
   font-weight: bold;
   margin-right: 5px;
+}
+
+.supertype_a::after {
+  content: "A";
+  background-color: lightgreen;
 }
 
 .supertype_c::after {

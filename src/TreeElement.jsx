@@ -212,7 +212,10 @@ function TreeElement(props) {
                                 Delete Node
                             </div>
                         </div>
-                        <span className={props.superType == 'product' ? "supertype_p" :props.superType == 'entity' ? "supertype_e":"supertype_c"}></span>
+                        <span className={props.superType == 'product' ? "supertype_p" 
+                                        :props.superType == 'entity' ? "supertype_e"
+                                        :props.superType == 'classification' ? "supertype_c"
+                                        :props.superType == 'asset' ? "supertype_a":""}></span>
                         <div onClick={() => { getDetailInfo(parentData.id) }} className={parentData.id == detailData.id ? "currentDetail" : ""} >
                             {parentData.name != null && parentData.name.length > 0 ? <>
                                 {parentData.name}

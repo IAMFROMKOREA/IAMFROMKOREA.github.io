@@ -321,7 +321,7 @@ function DetailInfo(props) {
                                 {curData.superType == "asset" ? 
                                 <tr>
                                     <td>Attach File Link</td>
-                                    <td><a href={curData.contentUri} target="_blank">download</a></td>
+                                    <td><a href={curData.contentUri} target="_blank">Download</a></td>
 
                                 </tr>:""}
                             </> : <></>
