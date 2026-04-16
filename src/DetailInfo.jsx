@@ -162,6 +162,10 @@ function DetailInfo(props) {
         const tabArr = ["Basic", "Data Container"];
         return (<>
             <div className='tabMain'>
+                <span className={curData.superType == 'product' ? "supertype_p" 
+                                        :curData.superType == 'entity' ? "supertype_e"
+                                        :curData.superType == 'classification' ? "supertype_c"
+                                        :curData.superType == 'asset' ? "supertype_a":""}></span>
                 {tabArr.map((element, index) => {
                     return (<div className={index == curTab ? 'curTab' : ''} onClick={e => { setCurTab(index) }}>{element}</div>)
                 })}
@@ -318,7 +322,7 @@ function DetailInfo(props) {
                                     </td>
 
                                 </tr>
-                                {curData.superType == "asset" ? 
+                                {curData.superType == "asset" && curData.contentUri != undefined && curData.contentUri.length > 0 ? 
                                 <tr>
                                     <td>Attach File Link</td>
                                     <td><a href={curData.contentUri} target="_blank">Download</a></td>

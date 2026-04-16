@@ -54,11 +54,18 @@ function TreeElement(props) {
 
     }, [detailData.path])
 
+    function canGetChildDatas(){
+        if ((sessionChildInfo + "") == 'null' && (parentData.hasChildren || (parentData.assets != undefined  && parentData.assets.pageElements.length > 0 ) ) ) {//자식노드가 닫혀있을떄 실행된 경우 자식노드를  가져오기 수행
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     function getChildDatas() {
 
         console.log("getChildDatas===")
-        if ((sessionChildInfo + "") == 'null' && (parentData.hasChildren || (parentData.assets != undefined  && parentData.assets.pageElements.length > 0 ) ) ) {//자식노드가 닫혀있을떄 실행된 경우 자식노드를  가져오기 수행
+        if (canGetChildDatas()) {
             console.log("쿼리")
             setIsLoading(true);
             getData(parentData.id, props.superType, callBack_getChildDatas)
@@ -186,9 +193,8 @@ function TreeElement(props) {
                 <div className='treeElement' id={'treeElement_' + parentData.id} key={'treeElement_' + parentData.id}>
                     <div>
                         <span onClick={() => { getChildDatas() }} className={(sessionChildInfo + "") != 'null' && parentData.hasChildren ? "rotating" : "flipbutton"}>
-                            {((parentData.hasChildren == false && (parentData.assets == undefined ||  parentData.assets.pageElements.length < 1 ))) 
-                            || (sessionChildInfo + "") != 'null'
-                                ? <>▽</> : <>▶</>}
+                            {canGetChildDatas()
+                                ? <>▶</> : <>▽</>}
                         </span>
                         <div className='popUpButton'>
                             <button>⁞</button>

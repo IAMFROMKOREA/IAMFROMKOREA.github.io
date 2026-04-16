@@ -701,30 +701,35 @@ button:hover {
 .supertype_c::after,
 .supertype_e::after,
 .supertype_p::after {
-  border-radius: 5px;
+  border: solid 1px lightslategray;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
   width: 20px;
   font-weight: bold;
   margin-right: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: black;
 }
 
 .supertype_a::after {
-  content: "A";
+  content: "AST";
   background-color: lightgreen;
 }
 
 .supertype_c::after {
-  content: "C";
+  content: "CLS";
   background-color: orange;
 }
 
 
 .supertype_e::after {
-  content: "E";
+  content: "ENT";
   background-color: lightcyan;
 }
 
 .supertype_p::after {
-  content: "P";
+  content: "PRD";
   background-color: lightskyblue;
 }
 
@@ -1320,6 +1325,7 @@ input[id='sourceSelectCheck']:checked+.sourceSelectSlide::after {
   color: black;
   transition: all 0.5s linear;
   text-decoration: underline;
+  font-weight: bold;
 }
 
 
