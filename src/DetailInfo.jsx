@@ -202,8 +202,8 @@ function DetailInfo(props) {
     function DATACONTAINER(props) {
         const dataContainer = props.dataContainer;
         if (dataContainer != undefined) {
-            const dataContainerType = dataContainer != undefined ?dataContainer.dataContainerType:null;            
-            const attList = dataContainerType !=undefined?dataContainerType.validAttributes.sort((a,b)=> a.name - b.name):[];
+            const dataContainerType = dataContainer != undefined ? dataContainer.dataContainerType : null;
+            const attList = dataContainerType != undefined ? dataContainerType.validAttributes.sort((a, b) => a.name - b.name) : [];
             const dataContainers = dataContainer != undefined ? dataContainer.dataContainers : [];
 
             return (
@@ -212,27 +212,29 @@ function DetailInfo(props) {
                     <table className='tabStyle1'>
                         <thead>
                             <tr>
-                                {attList.map(validAttribute=>{
-                                    return(
+                                <th>ID</th>
+                                {attList.map(validAttribute => {
+                                    return (
                                         <th>{validAttribute.name}</th>
                                     );
-                                }) }
+                                })}
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                dataContainers.map(obj=>{
+                                dataContainers.map(obj => {
                                     return (
                                         <tr>
-                                        {attList.map(validAttribute=>{
-                                            return <>
-                                            <td>                                                
-                                                <ATTVALUE element={obj.values.filter(value=>value.attribute.id==validAttribute.id)[0]}/>
-                                            </td>
+                                            <td>{obj.id}</td>
+                                            {attList.map(validAttribute => {
+                                                return <>
+                                                    <td>
+                                                        <ATTVALUE element={obj.values.filter(value => value.attribute.id == validAttribute.id)[0]} />
+                                                    </td>
 
-                                            </>
-                                        })}
-                                    </tr>
+                                                </>
+                                            })}
+                                        </tr>
                                     );
                                 })
                             }
@@ -305,7 +307,7 @@ function DetailInfo(props) {
                                                 <span className='pathlink' onClick={() => { getDetailData(element.id) }}>
                                                     {element.name}({element.id})
                                                     {curData.path.length - 1 == index ? <>
-                                                        ""
+
                                                     </> : <>
                                                         <span style={{ color: "orange" }}>⨠</span>
                                                     </>}
@@ -316,6 +318,12 @@ function DetailInfo(props) {
                                     </td>
 
                                 </tr>
+                                {curData.superType == "asset" ? 
+                                <tr>
+                                    <td>Attach File Link</td>
+                                    <td><a href={curData.contentUri} target="_blank">download</a></td>
+
+                                </tr>:""}
                             </> : <></>
 
                             }
@@ -367,6 +375,10 @@ function DetailInfo(props) {
                                     </tr>
                                 ))}
                             </> : <></>}
+
+
+                           
+
                         </>
 
                         : <></>

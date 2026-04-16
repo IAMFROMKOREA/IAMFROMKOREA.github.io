@@ -697,6 +697,7 @@ button:hover {
   color: #E10098;
 }
 
+.supertype_c::after,
 .supertype_e::after,
 .supertype_p::after {
   border-radius: 5px;
@@ -704,6 +705,12 @@ button:hover {
   font-weight: bold;
   margin-right: 5px;
 }
+
+.supertype_c::after {
+  content: "C";
+  background-color: orange;
+}
+
 
 .supertype_e::after {
   content: "E";
@@ -1282,23 +1289,33 @@ input[id='sourceSelectCheck']:checked+.sourceSelectSlide::after {
   display: flex;
 }
 
-.tabMain>.curTab,
-.tabMain>div:hover{
-  border: solid 1px #e10098;
-  border-bottom: 0px;
-  background-color: white;
-  color: black;
-  transition: all 1.0s linear;
-}
+
 .tabMain>div{
-  background-color: #2ba1b1;
+  border: solid 1px lightgray;
+  background-color: #84b4bb;
   color: white;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   margin-right: 5px;
   padding: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
   cursor: pointer;
 }
+.tabMain>div:hover{
+  border-bottom: 0px;
+  background-color: #93c3ca;
+  color: black;
+  transition: all 0.5s linear;
+}
+.tabMain>.curTab{
+  background-color: #2ba1b1;
+  border-bottom: 0px;
+  color: black;
+  transition: all 0.5s linear;
+  text-decoration: underline;
+}
+
 
 .locationArea:hover>.imgArea>img {
   top: 2px;
