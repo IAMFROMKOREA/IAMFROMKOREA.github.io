@@ -388,7 +388,7 @@ async function getToken(stepId, stepPassword) {
                 token = "Bearer " + response.data;
             }
         }).catch((err) => {
-            console.log("getTokenERR==" + err)
+            alert("Error occurred while fetching token: " + err);
         });
     return token;
 }
@@ -402,11 +402,11 @@ function getTokenWithDomain(stepId, stepPassword, domain, callBack) {
         .post(url, {}, { headers: { "Content-Type": "application/x-www-form-urlencoded" } }).then((response) => {
             if (response.status == 200) {
                 token = "Bearer " + response.data;
-                callBack(token,"");
-            } 
+                callBack(token, "");
+            }
 
         }).catch((err) => {
-            callBack("",err);
+            callBack("", err);
         });
     return token;
 }

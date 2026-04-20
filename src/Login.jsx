@@ -9,6 +9,11 @@ import { getTokenWithDomain } from './ApiTest';
 
 function Login() {
 
+    const sysList = [
+        { name: "LBL Dev", domain: "https://lbl-dev.mdm.stibosystems.com" },
+        { name: "LBL QA", domain: "https://lbl-qua.mdm.stibosystems.com" },
+        { name: "LBL PRD", domain: "https://lbl-prod.mdm.stibosystems.com" }
+    ];
     const [stepId, setStepId] = useState();
     const [stepPassword, setStepPassword] = useState();
     const [domain, setDomain] = useState("https://lbl-dev.mdm.stibosystems.com");
@@ -112,9 +117,11 @@ function Login() {
 
                             <div>
                                 <select className='Input' value={domain} onChange={(e) => { setDomain(e.target.value) }} style={{ width: '300px', textAlign: 'center' }}>
-                                    <option value="https://lbl-dev.mdm.stibosystems.com">LBL Dev</option>
-                                    <option value="https://lbl-qua.mdm.stibosystems.com">LBL QA</option>
-                                    <option value="https://lbl-prod.mdm.stibosystems.com">LBL PRD</option>
+                                    {sysList.map((sys, index) => (
+                                        <option key={index} value={sys.domain}>
+                                            {sys.name}
+                                        </option>
+                                    ))}
                                 </select>
                             </div>
                         </div>
