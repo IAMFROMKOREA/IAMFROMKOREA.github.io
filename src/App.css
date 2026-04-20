@@ -46,6 +46,19 @@ input[type="checkbox"] {
 
 }
 
+.sectionLabel {
+  color: black;
+  margin-top: 15px;
+  text-align: left;
+  padding: 3px;
+  text-decoration: underline;
+
+}
+
+.sectionLabel::before {
+  content: "▶";
+}
+
 
 /* .loginLogo,
 .loginLogospinning_fast {
@@ -117,6 +130,7 @@ input[type="checkbox"] {
 
 .logoArea {
   position: relative;
+  height: 150px;
 }
 
 .header>div:first-child {
@@ -571,6 +585,7 @@ input[type="checkbox"] {
   width: 100%;
   overflow-y: scroll;
   height: 770px;
+  overflow-x: scroll;
 }
 
 button {
@@ -689,27 +704,48 @@ button:hover {
   color: #E10098;
 }
 
+.supertype_a::after,
+.supertype_c::after,
 .supertype_e::after,
 .supertype_p::after {
-  border-radius: 5px;
+  /* border: solid 1px lightslategray; */
+  /* border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px; */
+  clip-path: polygon(68% 0, 85% 51%, 68% 100%, 0 99%, 0 0);;
   width: 20px;
+  font-size: 12px;
   font-weight: bold;
   margin-right: 5px;
+  padding-left: 3px;
+  padding-right: 15px;
+  color: black;
 }
 
+.supertype_a::after {
+  content: "AST";
+  background-color: lightgreen;
+}
+
+.supertype_c::after {
+  content: "CLS";
+  background-color: orange;
+}
+
+
 .supertype_e::after {
-  content: "E";
+  content: "ENT";
   background-color: lightcyan;
 }
 
 .supertype_p::after {
-  content: "P";
+  content: "PRD";
   background-color: lightskyblue;
 }
 
 .attTypeLabel {
   text-decoration-line: underline;
-  background: whitesmoke !important;
+  background: #e0eaec !important;
+  color: black;
   font-weight: bold;
 }
 
@@ -782,7 +818,7 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: whitesmoke;
+  background-color: #cbe2e5;
   width: 50%;
 
 }
@@ -883,8 +919,6 @@ button:hover {
 }
 
 .loginStepBtn {
-  position: absolute;
-  right: -90%;
   bottom: 0px;
   width: 100%;
 }
@@ -961,7 +995,6 @@ button:hover {
 }
 
 .inputArea {
-  width: 378px;
   display: block;
   position: relative;
 }
@@ -1102,7 +1135,7 @@ input[id='decryption']:checked+.decryptedPw+.decryptingBtn {
 
 .main_right {
   display: flex;
-  width: 100%;
+  min-width: 1000px;
 }
 
 .main_left:has(input[id='areaControl']:checked) {
@@ -1112,7 +1145,6 @@ input[id='decryption']:checked+.decryptedPw+.decryptingBtn {
 
 
 
-.searchPanel_resultArea {}
 
 .resultElement {
   display: flex;
@@ -1221,6 +1253,7 @@ input[id='decryption']:checked+.decryptedPw+.decryptingBtn {
 
 .workSpaceSlide::after {
   content: "Main";
+  font-weight: bold;
 }
 
 
@@ -1272,6 +1305,40 @@ input[id='sourceSelectCheck']:checked+.sourceSelectSlide::after {
 
 .main_left:has(.searchArea)+.main_right .locationArea {
   display: none;
+}
+
+.tabMain {
+  display: flex;
+}
+
+
+.tabMain>div {
+  border: solid 1px lightgray;
+  background-color: #84b4bb;
+  color: white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  margin-right: 5px;
+  padding: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  cursor: pointer;
+}
+
+.tabMain>div:hover {
+  border-bottom: 0px;
+  background-color: #93c3ca;
+  color: black;
+  transition: all 0.5s linear;
+}
+
+.tabMain>.curTab {
+  background-color: #2ba1b1;
+  border-bottom: 0px;
+  color: black;
+  transition: all 0.5s linear;
+  text-decoration: underline;
+  font-weight: bold;
 }
 
 
@@ -1328,9 +1395,9 @@ input[id='sourceSelectCheck']:checked+.sourceSelectSlide::after {
   margin-left: 5px;
 }
 
-.del::before{
+.del::before {
   color: red;
-  content:"Delete";
+  content: "Delete";
 }
 
 .changed::before {

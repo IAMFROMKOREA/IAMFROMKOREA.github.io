@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 //const { setIsLoading } = useContext(AppContext);
-const tag = {
+let tag = {
     values: "values{\r\n"
         + "        simpleValue\r\n"
         + "        inherited\r\n"
@@ -40,8 +40,55 @@ const tag = {
         + "    currentRevision\r\n"
         + "    currentRevisionLastEdited\r\n"
         + "    approvalStatus\r\n"
-        + "    path { id name }\r\n"
+        + "    path { id name }\r\n",
+    basic_asset: "    id\r\n"
+        + "    name\r\n"
+        + "    currentRevision\r\n"
+        + "    currentRevisionLastEdited\r\n"
+        + "    approvalStatus\r\n"
+        + "    path { id name }\r\n",
 
+    dataContainers: "  dataContainers{\r\n"
+        + "        dataContainerType{\r\n"
+        + "          id\r\n"
+        + "          name\r\n"
+        + "          validAttributes{\r\n"
+        + "             id\r\n"
+        + "             name\r\n"
+        + "          }\r\n"
+        + "        }\r\n"
+        + "        dataContainers{\r\n"
+        + "          id\r\n"
+        + "          values{\r\n"
+        + "            attribute{\r\n"
+        + "              id\r\n"
+        + "              name\r\n"
+        + "              multivalued\r\n"
+        + "              validListOfValuesEntries{\r\n"
+        + "                pageElements{\r\n"
+        + "                  value\r\n"
+        + "                  valueId\r\n"
+        + "                }  \r\n"
+        + "              }\r\n"
+        + "            }\r\n"
+        + "            simpleValue            \r\n"
+        + "            values{\r\n"
+        + "              valueId\r\n"
+        + "            }\r\n"
+        + "          }\r\n"
+        + "        }\r\n"
+        + "      }"
+
+}
+
+tag = {...tag, 
+    assets :"    assets {\r\n"
+        + "      pageElements {\r\n"
+        + "        id\r\n"
+        + "        name\r\n"
+        + tag.objectType
+        + "      }\r\n"
+        + "    }\r\n"
 }
 
 const typeids = {
@@ -71,6 +118,7 @@ function searchData(conditions, callBack) {
         + "    pageElements {\r\n"
         + tag.basic
         + tag.values
+        + tag.dataContainers
         + tag.objectType
         + "    }\r\n"
         + "  }\r\n"
@@ -81,6 +129,7 @@ function searchData(conditions, callBack) {
         + "    pageElements {\r\n"
         + tag.basic
         + tag.values
+        + tag.dataContainers
         + tag.objectType
         + "    }\r\n"
         + "  }\r\n"
@@ -106,6 +155,7 @@ function searchDataByIdOrName(conditionValue, callBack) {
         + "    pageElements {\r\n"
         + tag.basic
         + tag.values
+        + tag.dataContainers
         + tag.objectType
         + "    }\r\n"
         + "  }\r\n"
@@ -116,6 +166,7 @@ function searchDataByIdOrName(conditionValue, callBack) {
         + "    pageElements {\r\n"
         + tag.basic
         + tag.values
+        + tag.dataContainers
         + tag.objectType
         + "    }\r\n"
         + "  }\r\n"
@@ -246,6 +297,10 @@ function getData(stepId, superType, callBack) {
         getProductData(stepId, callBack);
     } else if (superType == 'entity') {
         getEntityData(stepId, callBack);
+    } else if (superType == 'classification') {
+        getClassificationData(stepId, callBack);
+    } else {
+        getAssetData(stepId, callBack);
     }
 }
 
@@ -256,6 +311,7 @@ function getEntityData(stepId, callBack) {
         + "  entity(context: \"Context1\", workspace: #WORKSPACE#, id: $id) {\r\n"
         + tag.basic
         + tag.values
+        + tag.dataContainers
         + tag.objectType
         + "    children {\r\n"
         + "      pageElements {\r\n"
@@ -294,6 +350,7 @@ function getProductData(stepId, callBack) {
         + "  product(context: \"Context1\", workspace: #WORKSPACE#, id: $id) {\r\n"
         + tag.basic
         + tag.values
+        + tag.dataContainers
         + tag.objectType
         + "    children {\r\n"
         + "      pageElements {\r\n"
@@ -303,6 +360,44 @@ function getProductData(stepId, callBack) {
         + tag.objectType
         + "      }\r\n"
         + "    }\r\n"
+        + "  }\r\n"
+        + "}";
+    callGraphQL(query, { "id": stepId }, callBack);
+}
+
+
+function getAssetData(stepId, callBack) {
+    let query = "query _query($id: String!) {\r\n"
+        + "  asset(context: \"Context1\", workspace: #WORKSPACE#, id: $id) {\r\n"
+        + tag.basic_asset
+        + tag.values
+        + tag.objectType
+        +"      contentUri"
+        + "  }\r\n"
+        + "}";
+    callGraphQL(query, { "id": stepId }, callBack);
+}
+
+
+function getClassificationData(stepId, callBack) {
+    let query = "query _query($id: String!) {\r\n"
+        + "  classification(context: \"Context1\", workspace: #WORKSPACE#, id: $id) {\r\n"
+        + tag.basic
+        + tag.values
+        + tag.objectType
+        + tag.assets
+        + "    children {\r\n"
+        + "      pageElements {\r\n"
+        + "        id\r\n"
+        + "        name\r\n"
+        + "        hasChildren\r\n"
+        + tag.assets
+        + tag.objectType
+        + "      }\r\n"
+        + "    }\r\n"
+
+       
+
         + "  }\r\n"
         + "}";
     callGraphQL(query, { "id": stepId }, callBack);
@@ -461,5 +556,5 @@ export {
     getData, getCarData, getEntityData, getToken, cloneObject, getProductData, getTopEntityRoot, createEntityData,
     createData, createProductData, setNodeSimpleValue, setNodeValueById, setNodeName, searchData, searchAttribute,
     setPathChildDataToSession, scrollToCurId, deleteData, getExtensionInfo, putExtensionInfo, searchDataByIdOrName,
-    doRestartServer, getTokenWithDomain
+    doRestartServer, getTokenWithDomain, getAssetData, getClassificationData
 };

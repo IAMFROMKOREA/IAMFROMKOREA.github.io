@@ -2,7 +2,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import TreeElement from './TreeElement';
 import DetailInfo from './DetailInfo';
-import { cloneObject, getData, getEntityData, getProductData, scrollToCurId, searchAttribute, searchData, searchDataByIdOrName } from './ApiTest';
+import { cloneObject, getAssetData, getClassificationData, getData, getEntityData, getProductData, scrollToCurId, searchAttribute, searchData, searchDataByIdOrName } from './ApiTest';
 import ScrollToTop from './ScrollToTop';
 import { AppContext } from './App';
 import CustomCompControl from './CustomCompControl';
@@ -19,6 +19,8 @@ function StepMain() {
     const [init, setInit] = useState(false);  //화면 최초 로딩시 데이터 추출유무
     const [entityData, setEntityData] = useState({}); //entity 루트
     const [productData, setProductData] = useState({});//product 루트
+    const [classificationData, setClassificationData] = useState({});//classfication 루트
+
     const curTabArea = document.getElementById('curTabArea');//top 버튼 클릭시 상단이동
     const [treeAreaWidth, setTreeAreaWidth] = useState(500);
     const { setIsLoading } = useContext(AppContext);
@@ -35,7 +37,7 @@ function StepMain() {
     const [conditionIdOrName, setConditionIdorName] = useState("");
     const [searchListByIdOrName, setSearchListByIdOrName] = useState([]);
     const [curDomain] = useState(sessionStorage.getItem("domain"));
-    const domainClsName = curDomain.replaceAll("https://","").replaceAll(".mdm.stibosystems.com","");
+    const domainClsName = curDomain.replaceAll("https://", "").replaceAll(".mdm.stibosystems.com", "");
 
 
     useEffect(() => {
@@ -47,6 +49,9 @@ function StepMain() {
 
             getProductData("Product hierarchy root", (data) => {
                 setProductData(data.data.product);
+            });
+            getClassificationData("AssetsRoot", (data) => {
+                setClassificationData(data.data.classification)
             });
             setInit(true);
         }
@@ -348,7 +353,9 @@ function StepMain() {
                     {//Tree Tab===========================================================================================
                         curTabNo == 1 ? <>
                             <div className='treeArea' id="curTabArea" >
-
+                                {classificationData !== null && classificationData.id !== undefined ? <>
+                                    <TreeElement parentData={classificationData} superType={"classification"} area={curTabArea} />
+                                </> : ""}
                                 {entityData !== null && entityData.id !== undefined ? <>
                                     <TreeElement parentData={entityData} superType={"entity"} area={curTabArea} />
                                 </> : ""}

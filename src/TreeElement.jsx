@@ -9,6 +9,7 @@ import { TreeViewContext } from './StepMain';
 function TreeElement(props) {
     const sessionStorage = window.sessionStorage;
     let sessionChildInfo = sessionStorage.getItem("tree_child_" + props.parentData.id);
+    let sessionChildAssetInfo = sessionStorage.getItem("tree_childasset_" + props.parentData.id);
     const [parentData, setParentData] = useState(props.parentData);
     const [refresh, setRefresh] = useState(false);
     const { setIsLoading } = useContext(AppContext);
@@ -53,11 +54,18 @@ function TreeElement(props) {
 
     }, [detailData.path])
 
+    function canGetChildDatas(){
+        if ((sessionChildInfo + "") == 'null' && (parentData.hasChildren || (parentData.assets != undefined  && parentData.assets.pageElements.length > 0 ) ) ) {//자식노드가 닫혀있을떄 실행된 경우 자식노드를  가져오기 수행
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     function getChildDatas() {
 
         console.log("getChildDatas===")
-        if ((sessionChildInfo + "") == 'null' && parentData.hasChildren) {//자식노드가 닫혀있을떄 실행된 경우 자식노드를  가져오기 수행
+        if (canGetChildDatas()) {
             console.log("쿼리")
             setIsLoading(true);
             getData(parentData.id, props.superType, callBack_getChildDatas)
@@ -65,6 +73,7 @@ function TreeElement(props) {
             console.log("노쿼리")
             setRefresh(!refresh);
             sessionStorage.setItem("tree_child_" + parentData.id, null);
+            sessionStorage.setItem("tree_childasset_" + parentData.id, null);
         }
 
     }
@@ -75,8 +84,17 @@ function TreeElement(props) {
             let tempObj = {};
             if (data.data[props.superType] != undefined) {
                 tempObj = cloneObject(data.data[props.superType]);
+
             }
-            sessionStorage.setItem("tree_child_" + parentData.id, JSON.stringify({ superType: props.superType, children: tempObj.children.pageElements }));
+            let children = tempObj.children.pageElements;
+            sessionStorage.setItem("tree_child_" + parentData.id, JSON.stringify({ superType: props.superType, children: children }));
+
+            if(tempObj.assets != undefined && tempObj.assets.pageElements.length > 0){
+                let children_asset = tempObj.assets.pageElements;
+                sessionStorage.setItem("tree_childasset_" + parentData.id, JSON.stringify({ superType: "asset", children: children_asset }));
+            }
+
+            
             setParentData(tempObj);
         } catch (e) {
             console.error(e);
@@ -175,9 +193,8 @@ function TreeElement(props) {
                 <div className='treeElement' id={'treeElement_' + parentData.id} key={'treeElement_' + parentData.id}>
                     <div>
                         <span onClick={() => { getChildDatas() }} className={(sessionChildInfo + "") != 'null' && parentData.hasChildren ? "rotating" : "flipbutton"}>
-                            {(parentData.hasChildren == false) ||
-                                (sessionChildInfo + "") != 'null'
-                                ? <>▽</> : <>▶</>}
+                            {canGetChildDatas()
+                                ? <>▶</> : <>▽</>}
                         </span>
                         <div className='popUpButton'>
                             <button>⁞</button>
@@ -201,7 +218,10 @@ function TreeElement(props) {
                                 Delete Node
                             </div>
                         </div>
-                        <span className={props.superType == 'product' ? "supertype_p" : "supertype_e"}></span>
+                        <span className={props.superType == 'product' ? "supertype_p" 
+                                        :props.superType == 'entity' ? "supertype_e"
+                                        :props.superType == 'classification' ? "supertype_c"
+                                        :props.superType == 'asset' ? "supertype_a":""}></span>
                         <div onClick={() => { getDetailInfo(parentData.id) }} className={parentData.id == detailData.id ? "currentDetail" : ""} >
                             {parentData.name != null && parentData.name.length > 0 ? <>
                                 {parentData.name}
@@ -215,6 +235,15 @@ function TreeElement(props) {
                             {JSON.parse(sessionChildInfo).children.map((obj) => {
                                 return <>
                                     <TreeElement parentData={obj} superType={props.superType} area={props.area} />
+                                </>;
+                            })}
+                        </div>
+                    </> : <></>}
+                    {(sessionChildAssetInfo + "") != 'null' ? <>
+                        <div style={{ marginLeft: "10px" }}>
+                            {JSON.parse(sessionChildAssetInfo).children.map((obj) => {
+                                return <>
+                                    <TreeElement parentData={obj} superType={"asset"} area={props.area} />
                                 </>;
                             })}
                         </div>
