@@ -734,7 +734,7 @@ button:hover {
 
 .supertype_e::after {
   content: "ENT";
-  background-color: lightcyan;
+  background-color: rgb(163, 126, 233);
 }
 
 .supertype_p::after {
@@ -1135,7 +1135,7 @@ input[id='decryption']:checked+.decryptedPw+.decryptingBtn {
 
 .main_right {
   display: flex;
-  min-width: 1000px;
+  width: 100%;
 }
 
 .main_left:has(input[id='areaControl']:checked) {
