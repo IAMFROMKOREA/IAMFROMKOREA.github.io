@@ -151,7 +151,7 @@ function DetailInfo(props) {
             </> : <>
                 <input className="Input" key={element.attribute.id} type="text" value={element.simpleValue == null ? "" : element.simpleValue} onChange={(event) => { setValue(element.attribute.id, event.target.value, false) }}
                     style={{ width: "90%" }}
-                    disabled={isMainWS == "true" && element.editable != false ? false : true}
+                    disabled={isMainWS == "true" && element.editable != false && element.calculated != true ? false : true}
                 />
             </>}
             </>);
@@ -162,10 +162,10 @@ function DetailInfo(props) {
         const tabArr = ["Basic", "Data Container"];
         return (<>
             <div className='tabMain'>
-                <span className={curData.superType == 'product' ? "supertype_p" 
-                                        :curData.superType == 'entity' ? "supertype_e"
-                                        :curData.superType == 'classification' ? "supertype_c"
-                                        :curData.superType == 'asset' ? "supertype_a":""}></span>
+                <span className={curData.superType == 'product' ? "supertype_p"
+                    : curData.superType == 'entity' ? "supertype_e"
+                        : curData.superType == 'classification' ? "supertype_c"
+                            : curData.superType == 'asset' ? "supertype_a" : ""}></span>
                 {tabArr.map((element, index) => {
                     return (<div className={index == curTab ? 'curTab' : ''} onClick={e => { setCurTab(index) }}>{element}</div>)
                 })}
@@ -322,12 +322,12 @@ function DetailInfo(props) {
                                     </td>
 
                                 </tr>
-                                {curData.superType == "asset" && curData.contentUri != undefined && curData.contentUri.length > 0 ? 
-                                <tr>
-                                    <td>Attach File Link</td>
-                                    <td><a href={curData.contentUri} target="_blank">Download</a></td>
+                                {curData.superType == "asset" && curData.contentUri != undefined && curData.contentUri.length > 0 ?
+                                    <tr>
+                                        <td>Attach File Link</td>
+                                        <td><a href={curData.contentUri} target="_blank">Download</a></td>
 
-                                </tr>:""}
+                                    </tr> : ""}
                             </> : <></>
 
                             }
@@ -381,7 +381,7 @@ function DetailInfo(props) {
                             </> : <></>}
 
 
-                           
+
 
                         </>
 
