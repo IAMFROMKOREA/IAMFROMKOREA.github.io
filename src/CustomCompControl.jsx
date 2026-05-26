@@ -1,6 +1,6 @@
 
 import { useContext, useEffect, useRef, useState } from 'react'
-import { doRestartServer, getExtensionInfo, putExtensionInfo } from './ApiTest';
+import { doRestartServer, getExtensionInfo, putExtensionInfo, doRestartAppServer } from './ApiTest';
 import { AppContext } from './App';
 
 function CustomCompControl(props) {
@@ -129,10 +129,27 @@ function CustomCompControl(props) {
     }
 
 
-    function restartServer() {
+    function restartAllServer() {
         if (confirm("Server restart?")) {
             setIsLoading(true);
             doRestartServer((returnObj) => {
+                if (returnObj.data != undefined) {
+                    alert(returnObj.data.message);
+
+                } else {
+                    alert(returnObj);
+
+                }
+                setIsLoading(false);
+            })
+        }
+
+    }
+
+    function restartAppServer() {
+        if (confirm("Server App restart?")) {
+            setIsLoading(true);
+            doRestartAppServer((returnObj) => {
                 if (returnObj.data != undefined) {
                     alert(returnObj.data.message);
 
@@ -159,6 +176,7 @@ function CustomCompControl(props) {
 
                             {props.isCurSource ? <>
                                 <th>Version<br />(As-Is)</th>
+                                <th>Status</th>
                             </> : <>
                                 <th>Version<br />(To-Be)</th>
                                 <th>Status</th>
@@ -183,6 +201,7 @@ function CustomCompControl(props) {
                                     <td>{index + 1}</td>
                                     <td>{obj.name}</td>
                                     <td>{obj.version}</td>
+                                    <td><div className='installed'></div></td>
                                     <td>{obj.recipe}</td>
                                 </tr>
                             })}
@@ -196,7 +215,7 @@ function CustomCompControl(props) {
                                         <td>{index + 1}</td>
                                         <td>{obj.name}</td>
                                         <td>
-                                            <div style={{display: 'flex'}}>
+                                            <div style={{ display: 'flex' }}>
                                                 <input type="text" className="Input versionInput" value={obj.toBeVersion} onChange={(e) => { changeTobeVersion(index, e) }} />
                                                 <div>
                                                     <input type="checkbox" className='Input DelChk' id={obj.name + "_isDeleted"} value={obj.isDel} onChange={(e) => { changeIsDel(index, e) }} />
@@ -205,19 +224,19 @@ function CustomCompControl(props) {
                                             </div>
                                         </td>
                                         <td>
-                                        {obj.isDel === true?<>
-                                            <div className='del'></div>
-                                        </>:<>
-                                            {currentExtension.filter(element => element.name == obj.name).length > 0 ? 
-                                            <>
-                                                <div className={currentExtension.filter(element => element.name == obj.name)[0].version != obj.toBeVersion ? "changed" : "installed"}>
-                                                </div>
-                                            </> : 
-                                            <>
-                                                <div className='new'></div>
+                                            {obj.isDel === true ? <>
+                                                <div className='del'></div>
+                                            </> : <>
+                                                {currentExtension.filter(element => element.name == obj.name).length > 0 ?
+                                                    <>
+                                                        <div className={currentExtension.filter(element => element.name == obj.name)[0].version != obj.toBeVersion ? "changed" : "installed"}>
+                                                        </div>
+                                                    </> :
+                                                    <>
+                                                        <div className='new'></div>
+                                                    </>}
                                             </>}
-                                        </>}
-                                            
+
                                         </td>
                                         <td>
                                             <div className='recipe' style={{ textDecorationLine: obj.isDel ? "line-through" : "" }}>
@@ -257,7 +276,8 @@ function CustomCompControl(props) {
                 <div className='extensionBottom'>
                     <div className='searchPanel_btn custombtn' onClick={addComp} ><img src="/icon/plus.svg" width={"15px"} title={"Add"} />Add</div>
                     <div className='searchPanel_btn custombtn' onClick={applyComp} ><img src="/icon/upload.svg" width={"15px"} title={"Apply to server"} />Apply</div>
-                    <div className='searchPanel_btn custombtn' onClick={restartServer} ><img src="/icon/refresh.svg" width={"15px"} title={"Restart server"} />Sever Restart</div>
+                    <div className='searchPanel_btn custombtn' onClick={restartAllServer} ><img src="/icon/refresh.svg" width={"15px"} title={"Restart server"} />Sever(All) Restart</div>
+                    <div className='searchPanel_btn custombtn' onClick={restartAppServer} ><img src="/icon/refresh.svg" width={"15px"} title={"Restart server"} />Sever(App) Restart</div>
                 </div>
 
                 <div style={{ color: "black" }}>

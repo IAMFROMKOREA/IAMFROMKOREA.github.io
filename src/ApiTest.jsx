@@ -81,8 +81,9 @@ let tag = {
 
 }
 
-tag = {...tag, 
-    assets :"    assets {\r\n"
+tag = {
+    ...tag,
+    assets: "    assets {\r\n"
         + "      pageElements {\r\n"
         + "        id\r\n"
         + "        name\r\n"
@@ -372,7 +373,7 @@ function getAssetData(stepId, callBack) {
         + tag.basic_asset
         + tag.values
         + tag.objectType
-        +"      contentUri"
+        + "      contentUri"
         + "  }\r\n"
         + "}";
     callGraphQL(query, { "id": stepId }, callBack);
@@ -396,7 +397,7 @@ function getClassificationData(stepId, callBack) {
         + "      }\r\n"
         + "    }\r\n"
 
-       
+
 
         + "  }\r\n"
         + "}";
@@ -460,6 +461,22 @@ async function doRestartServer(callBack) {
     let token = await getToken(setpId, stepPassword);
     await axios
         .post(domain + "/system-management/step/restart", {}, { headers: { Authorization: token } }).then((response) => {
+            callBack(response);
+        }).catch((err) => {
+            console.log("call doRestartServer==" + err)
+            callBack(err);
+        });
+    return token;
+}
+
+
+async function doRestartAppServer(callBack) {
+    const setpId = sessionStorage.getItem("stepId");
+    const stepPassword = sessionStorage.getItem("stepPassword");
+    const domain = sessionStorage.getItem("domain");
+    let token = await getToken(setpId, stepPassword);
+    await axios
+        .post(domain + "/system-management/step/restart-app", {}, { headers: { Authorization: token } }).then((response) => {
             callBack(response);
         }).catch((err) => {
             console.log("call doRestartServer==" + err)
@@ -556,5 +573,5 @@ export {
     getData, getCarData, getEntityData, getToken, cloneObject, getProductData, getTopEntityRoot, createEntityData,
     createData, createProductData, setNodeSimpleValue, setNodeValueById, setNodeName, searchData, searchAttribute,
     setPathChildDataToSession, scrollToCurId, deleteData, getExtensionInfo, putExtensionInfo, searchDataByIdOrName,
-    doRestartServer, getTokenWithDomain, getAssetData, getClassificationData
+    doRestartServer, getTokenWithDomain, getAssetData, getClassificationData, doRestartAppServer
 };
