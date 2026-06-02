@@ -200,7 +200,15 @@ function CustomCompControl(props) {
                                 return <tr>
                                     <td>{index + 1}</td>
                                     <td>{obj.name}</td>
-                                    <td>{obj.version}</td>
+                                    <td>
+                                        <div style={{ display: 'flex' }}>
+                                            <input type="text" className="Input versionInput" value={obj.version} disabled />
+                                            <div>
+                                                <label></label>
+                                            </div>
+                                        </div>
+
+                                    </td>
                                     <td><div className='installed'></div></td>
                                     <td>{obj.recipe}</td>
                                 </tr>
