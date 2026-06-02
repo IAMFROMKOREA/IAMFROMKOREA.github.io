@@ -276,8 +276,8 @@ function CustomCompControl(props) {
                 <div className='extensionBottom'>
                     <div className='searchPanel_btn custombtn' onClick={addComp} ><img src="/icon/plus.svg" width={"15px"} title={"Add"} />Add</div>
                     <div className='searchPanel_btn custombtn' onClick={applyComp} ><img src="/icon/upload.svg" width={"15px"} title={"Apply to server"} />Apply</div>
-                    <div className='searchPanel_btn custombtn' onClick={restartAllServer} ><img src="/icon/refresh.svg" width={"15px"} title={"Restart server"} />Sever(All) Restart</div>
-                    <div className='searchPanel_btn custombtn' onClick={restartAppServer} ><img src="/icon/refresh.svg" width={"15px"} title={"Restart server"} />Sever(App) Restart</div>
+                    <div className='searchPanel_btn custombtn' style={{ color: "red" }} onClick={restartAllServer} ><img src="/icon/powerall-icon.svg" width={"15px"} title={"Restart server"} />Sever(All) Restart</div>
+                    <div className='searchPanel_btn custombtn' onClick={restartAppServer} ><img src="/icon/power-icon.svg" width={"15px"} title={"Restart server"} />Sever(App) Restart</div>
                 </div>
 
                 <div style={{ color: "black" }}>
