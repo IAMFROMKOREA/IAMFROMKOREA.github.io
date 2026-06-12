@@ -289,7 +289,24 @@ function CustomCompControl(props) {
                 </div>
 
                 <div style={{ color: "black" }}>
-                    {JSON.stringify(applyInfos)}
+                    {
+                        JSON.stringify(applyInfos) !== null && JSON.stringify(applyInfos).length > 2 ?
+                            <div>
+                                <button className='custombtn' onClick={() => {
+                                    navigator.clipboard.writeText(JSON.stringify(applyInfos))
+                                        .then(() => {
+                                            alert('Copied to clipboard');
+                                        })
+                                        .catch(err => {
+                                            console.error('Copy failed:', err);
+                                        });
+                                }}>Copy All Receipes</button>
+                            </div> : <></>
+                    }
+                    <div>
+                        {JSON.stringify(applyInfos)}
+                    </div>
+
                 </div>
             </> : ""}
 
