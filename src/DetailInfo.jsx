@@ -229,7 +229,7 @@ function DetailInfo(props) {
                                 dataContainers.map(obj => {
                                     return (
                                         <tr>
-                                            <td>{obj.id}</td>
+                                            <td style={{ color: "gray" }}>{obj.id}</td>
                                             {attList.map(validAttribute => {
                                                 return <>
                                                     <td>
