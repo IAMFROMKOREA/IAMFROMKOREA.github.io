@@ -711,7 +711,8 @@ button:hover {
   /* border: solid 1px lightslategray; */
   /* border-top-right-radius: 30px;
   border-bottom-right-radius: 30px; */
-  clip-path: polygon(68% 0, 85% 51%, 68% 100%, 0 99%, 0 0);;
+  clip-path: polygon(68% 0, 85% 51%, 68% 100%, 0 99%, 0 0);
+  ;
   width: 20px;
   font-size: 12px;
   font-weight: bold;
@@ -1078,15 +1079,15 @@ input[id='decryption']:checked+.decryptedPw+.decryptingBtn {
 }
 
 .lbl-dev {
-  color: green;
-}
-
-.lbl-qua {
   color: blue;
 }
 
+.lbl-qua {
+  color: orange;
+}
+
 .lbl-prod {
-  color: #E10098;
+  color: red;
 }
 
 .tabArea>div {
