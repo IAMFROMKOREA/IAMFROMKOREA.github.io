@@ -3,11 +3,13 @@ body {
 }
 
 #root {
-  min-width: 90%;
   margin: 0 auto;
   padding: 1rem;
   text-align: center;
   color-scheme: whitesmoke;
+  width: 100%;
+  border-top: solid 1px white;
+  border-bottom: solid 1px white;
 }
 
 input:disabled,
@@ -43,7 +45,7 @@ input[type="checkbox"] {
   font-size: 40px;
   font-weight: 500;
   padding: 5px;
-  border-bottom: #E10098 2px solid;
+  border-bottom: white 2px solid;
 
 }
 
@@ -218,6 +220,8 @@ input[type="checkbox"] {
 
 .tabStyle1 {
   width: 100%;
+  border: solid 1px white;
+  border-radius: 5px;
 }
 
 .tabStyle1 tr {
@@ -229,21 +233,21 @@ input[type="checkbox"] {
 }
 
 .tabStyle1 th {
-  /* background-color: #e0eaec; */
-  color: black;
+  color: #000;
   border-bottom: solid 1px white;
+  background: #109799;
 }
 
 .tabStyle1 td {
   text-align: start;
-  /* background-color: white; */
-  color: white;
+  color: #fff;
   border-bottom-style: solid;
   border-bottom-width: 1px;
-  border-bottom-color: lightgray;
+  border-bottom-color: #d3d3d3;
   text-wrap-mode: nowrap;
   padding: 3px;
   height: 30px;
+  background-color: #51a6a7;
 }
 
 .tabStyle1 td:nth-child(2) {
@@ -876,9 +880,8 @@ button:hover {
 
 .Input {
 
-  border-width: 0px;
-  border-bottom-width: 1px;
-  border-bottom-color: #2ba1b1;
+  border-width: 1px;
+  border-color: #2ba1b1;
   margin-bottom: 2px;
   height: 20px;
   border-radius: 5px;
@@ -887,7 +890,7 @@ button:hover {
 .loginInput {
   width: 300px;
   height: 50px;
-  border-radius: 20px;
+  border-radius: 10px;
   font-size: 15px;
   animation: showingFromRight 0.3s linear;
   text-align: center;
