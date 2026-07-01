@@ -301,7 +301,7 @@ function StepMain() {
                     <div className={domainClsName}>[{curDomain}]</div>
                 </div>
                 <div className='basicBtn' onClick={doLogout}>
-                    Logout
+                    <img src="/icon/logout.svg" width={25}></img>Logout
                 </div>
 
             </div>
