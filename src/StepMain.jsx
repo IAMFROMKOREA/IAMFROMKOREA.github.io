@@ -341,7 +341,7 @@ function StepMain() {
                     </>
                 }
             </div>
-            <div style={{ display: "flex", width:"100%" }}>
+            <div style={{ display: "flex", width: "100%", padding: '10px' }}>
 
                 <div id="main_left" className='main_left'>
                     <input type="checkbox" id="areaControl" style={{ display: "none" }} />

@@ -110,7 +110,7 @@ function Login() {
                 </div>
                 <div className='loginSub loginLeft'>
 
-                    <div style={{ display: "flex", position: "relative" }}>
+                    <div>
                         <div className='inputArea'>
                             <div>
                                 <input type="text" placeholder='STEP ID' className='Input loginInput' value={stepId} onChange={(e) => { setStepId(e.target.value) }}></input>
@@ -146,7 +146,7 @@ function Login() {
                         </div>
                     </div>
                 </div>
-                
+
 
 
 
