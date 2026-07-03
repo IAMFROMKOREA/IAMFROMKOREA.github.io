@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 //const { setIsLoading } = useContext(AppContext);
 let tag = {
     values: "values{\r\n"
@@ -78,12 +79,24 @@ let tag = {
         + "          }\r\n"
         + "        }\r\n"
         + "      }",
+
+}
+tag = {
+    ...tag,
+    assets: "    assets {\r\n"
+        + "      pageElements {\r\n"
+        + "        id\r\n"
+        + "        name\r\n"
+        + tag.objectType
+        + "      }\r\n"
+        + "    }\r\n",
     referencesByReferenceType: "referencesByReferenceType{\r\n"
         + "      referenceType{\r\n"
         + "        id\r\n"
         + "        name\r\n"
         + "      }\r\n"
         + "      referenceEntries{\r\n"
+        + tag.values
         + "        target{\r\n"
         + "          ...on StepNode{\r\n"
         + "            id\r\n"
@@ -95,21 +108,14 @@ let tag = {
         + "      }\r\n"
         + "    }",
 }
-tag = {
-    ...tag,
-    assets: "    assets {\r\n"
-        + "      pageElements {\r\n"
-        + "        id\r\n"
-        + "        name\r\n"
-        + tag.objectType
-        + "      }\r\n"
-        + "    }\r\n"
-}
 
+const SUPERTYPE = ["product", "entity", "classification", "asset"];
 
 const typeids = {
     product: "Product",
-    entity: "Entity"
+    entity: "Entity",
+    classification: "Classification",
+    asset: "Asset"
 }
 
 function getCarData(callBack) {
@@ -594,5 +600,5 @@ export {
     getData, getCarData, getEntityData, getToken, cloneObject, getProductData, getTopEntityRoot, createEntityData,
     createData, createProductData, setNodeSimpleValue, setNodeValueById, setNodeName, searchData, searchAttribute,
     setPathChildDataToSession, scrollToCurId, deleteData, getExtensionInfo, putExtensionInfo, searchDataByIdOrName,
-    doRestartServer, getTokenWithDomain, getAssetData, getClassificationData, doRestartAppServer
+    doRestartServer, getTokenWithDomain, getAssetData, getClassificationData, doRestartAppServer, SUPERTYPE
 };

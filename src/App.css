@@ -706,7 +706,7 @@ button:hover {
 
 .pathlink {
   cursor: pointer;
-  color: blue;
+  color: rgb(35, 22, 94);
   text-decoration: underline;
 }
 
@@ -1364,6 +1364,11 @@ input[id='sourceSelectCheck']:checked+.sourceSelectSlide::after {
   transition: all 0.5s linear;
   text-decoration: underline;
   font-weight: bold;
+}
+
+.tabMain+div {
+  border-radius: 5px;
+  border: solid 2px lightgray;
 }
 
 

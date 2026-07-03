@@ -2,12 +2,12 @@
 import { useContext, useEffect, useRef, useState } from 'react'
 import { getEntityData, getToken } from '/src/ApiTest'
 import { AppContext } from './App';
-import { cloneObject, getData, getProductData, scrollToCurId, setNodeName, setNodeSimpleValue, setNodeValueById, setPathChildDataToSession } from './ApiTest';
+import { cloneObject, getData, getProductData, scrollToCurId, setNodeName, setNodeSimpleValue, setNodeValueById, setPathChildDataToSession, SUPERTYPE } from './ApiTest';
 import { TreeViewContext } from './StepMain';
 
 function DetailInfo(props) {
 
-    const SUPERTYPE = ["product", "entity", "classification", "asset"];
+    //const SUPERTYPE = ["product", "entity", "classification", "asset"];
     const [curData, setCurData] = useState(props.detailData);
     const { setDetailData, detailData, isMainWS, mainRefresh, setMainRefresh } = useContext(TreeViewContext);
     const { setIsLoading } = useContext(AppContext);
@@ -75,12 +75,18 @@ function DetailInfo(props) {
 
 
     function getDetailData(stepId, superType) {
-        console.log("getDetailData", stepId, superType.toLowerCase());
-        setIsLoading(true);
-        getData(stepId, superType.toLowerCase(), callback_getDetailData)
+        if (superType == undefined || superType.length == 0) {
+        } else {
+            console.log("getDetailData", stepId, superType.toLowerCase());
+            setIsLoading(true);
+            getData(stepId, superType.toLowerCase(), callback_getDetailData)
+        }
+
+
     }
 
     function callback_getDetailData(data) {
+        setCurTab(0);
         let isSet = false;
         SUPERTYPE.map((superType) => {
             if (!isSet) {
@@ -88,6 +94,7 @@ function DetailInfo(props) {
                     let tempObj = data.data[superType];
                     tempObj.superType = superType;
                     console.log("getDetailData callback", tempObj);
+
                     setDetailData(tempObj);
                     scrollToCurId(tempObj.id);
                     isSet = true;
@@ -245,7 +252,7 @@ function DetailInfo(props) {
                     <table className='tabStyle1'>
                         <thead>
                             <tr>
-                                <th>Target ID</th>
+                                <th style={{ width: "300px" }}>Target ID</th>
                                 <th>Target Name</th>
                             </tr>
                         </thead>
@@ -263,7 +270,7 @@ function DetailInfo(props) {
                                 })
                             }
                         </tbody>
-                    </table>
+                    </table >
                 </>
 
             )

@@ -50,7 +50,7 @@ function StepMain() {
             getProductData("Product hierarchy root", (data) => {
                 setProductData(data.data.product);
             });
-            getClassificationData("AssetsRoot", (data) => {
+            getClassificationData("Classification 1 root", (data) => {
                 setClassificationData(data.data.classification)
             });
             setInit(true);
