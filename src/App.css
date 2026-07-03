@@ -318,7 +318,7 @@ input[type="checkbox"] {
 
 .tabStyle2 td:nth-child(1) {
   width: 20%;
-  background-color: #e0eaec;
+  background-color: #109799;
   color: black;
 
 
@@ -332,8 +332,8 @@ input[type="checkbox"] {
 
 .tabStyle2 td:nth-child(2) {
   width: 100%;
-  background-color: white;
-  color: black;
+  background-color: #51a6a7;
+  color: white;
   text-align: start;
 }
 
@@ -706,6 +706,8 @@ button:hover {
 
 .pathlink {
   cursor: pointer;
+  color: blue;
+  text-decoration: underline;
 }
 
 .pathlink:hover {
@@ -753,7 +755,7 @@ button:hover {
 
 .attTypeLabel {
   text-decoration-line: underline;
-  background: #e0eaec !important;
+  background: #109799 !important;
   color: black;
   font-weight: bold;
 }
@@ -1452,6 +1454,7 @@ input[id='sourceSelectCheck']:checked+.sourceSelectSlide::after {
 
 
 .extensionBottom {
+  margin-top: 10px;
   display: flex;
   justify-content: end;
 }

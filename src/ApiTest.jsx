@@ -77,10 +77,24 @@ let tag = {
         + "            }\r\n"
         + "          }\r\n"
         + "        }\r\n"
-        + "      }"
-
+        + "      }",
+    referencesByReferenceType: "referencesByReferenceType{\r\n"
+        + "      referenceType{\r\n"
+        + "        id\r\n"
+        + "        name\r\n"
+        + "      }\r\n"
+        + "      referenceEntries{\r\n"
+        + "        target{\r\n"
+        + "          ...on StepNode{\r\n"
+        + "            id\r\n"
+        + "            name\r\n"
+        + "            __typename\r\n"
+        + "          }\r\n"
+        + "          \r\n"
+        + "        }\r\n"
+        + "      }\r\n"
+        + "    }",
 }
-
 tag = {
     ...tag,
     assets: "    assets {\r\n"
@@ -91,6 +105,7 @@ tag = {
         + "      }\r\n"
         + "    }\r\n"
 }
+
 
 const typeids = {
     product: "Product",
@@ -132,6 +147,7 @@ function searchData(conditions, callBack) {
         + tag.values
         + tag.dataContainers
         + tag.objectType
+        + tag.referencesByReferenceType
         + "    }\r\n"
         + "  }\r\n"
         + "}";
@@ -169,6 +185,7 @@ function searchDataByIdOrName(conditionValue, callBack) {
         + tag.values
         + tag.dataContainers
         + tag.objectType
+        + tag.referencesByReferenceType
         + "    }\r\n"
         + "  }\r\n"
         + "}";
@@ -313,6 +330,7 @@ function getEntityData(stepId, callBack) {
         + tag.basic
         + tag.values
         + tag.dataContainers
+        + tag.referencesByReferenceType
         + tag.objectType
         + "    children {\r\n"
         + "      pageElements {\r\n"
@@ -352,6 +370,7 @@ function getProductData(stepId, callBack) {
         + tag.basic
         + tag.values
         + tag.dataContainers
+        + tag.referencesByReferenceType
         + tag.objectType
         + "    children {\r\n"
         + "      pageElements {\r\n"
@@ -373,6 +392,7 @@ function getAssetData(stepId, callBack) {
         + tag.basic_asset
         + tag.values
         + tag.objectType
+        + tag.referencesByReferenceType
         + "      contentUri"
         + "  }\r\n"
         + "}";
@@ -386,6 +406,7 @@ function getClassificationData(stepId, callBack) {
         + tag.basic
         + tag.values
         + tag.objectType
+        + tag.referencesByReferenceType
         + tag.assets
         + "    children {\r\n"
         + "      pageElements {\r\n"

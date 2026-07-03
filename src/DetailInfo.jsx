@@ -7,7 +7,7 @@ import { TreeViewContext } from './StepMain';
 
 function DetailInfo(props) {
 
-
+    const SUPERTYPE = ["product", "entity", "classification", "asset"];
     const [curData, setCurData] = useState(props.detailData);
     const { setDetailData, detailData, isMainWS, mainRefresh, setMainRefresh } = useContext(TreeViewContext);
     const { setIsLoading } = useContext(AppContext);
@@ -73,23 +73,46 @@ function DetailInfo(props) {
         getData(stepId, detailData.superType, callback_getDetailData)
     }
 
-    function callback_getDetailData(data) {
-        if (data.data[detailData.superType] != undefined) {
-            let tempObj = data.data[detailData.superType];
-            tempObj.superType = detailData.superType;
-            setDetailData(tempObj);
 
-            scrollToCurId(tempObj.id);
-            // if (document.querySelector('#treeElement_' + tempObj.id) != null) {
-            //     let divTop = document.querySelector('#treeElement_' + tempObj.id).offsetTop;
-            //     props.area.scrollTo({ top: divTop - 200, behavior: 'smooth' });
-            // }
-        } else {
-            setDetailData({ id: "" })
-        }
-
-        setIsLoading(false);
+    function getDetailData(stepId, superType) {
+        console.log("getDetailData", stepId, superType.toLowerCase());
+        setIsLoading(true);
+        getData(stepId, superType.toLowerCase(), callback_getDetailData)
     }
+
+    function callback_getDetailData(data) {
+        let isSet = false;
+        SUPERTYPE.map((superType) => {
+            if (!isSet) {
+                if (data.data[superType] != undefined) {
+                    let tempObj = data.data[superType];
+                    tempObj.superType = superType;
+                    console.log("getDetailData callback", tempObj);
+                    setDetailData(tempObj);
+                    scrollToCurId(tempObj.id);
+                    isSet = true;
+                } else {
+                    setDetailData({ id: "" })
+                }
+            }
+
+        });
+        setIsLoading(false);
+
+        // if (data.data[superType] != undefined) {
+        //     let tempObj = data.data[superType];
+        //     tempObj.superType = superType;
+        //     console.log("getDetailData callback", tempObj);
+        //     setDetailData(tempObj);
+
+        //     scrollToCurId(tempObj.id);
+        // } else {
+        //     setDetailData({ id: "" })
+        // }
+
+
+    }
+
 
     // function scrollToCurId(stepId) {
     //     if (document.querySelector('#treeElement_' + stepId) != null) {
@@ -159,7 +182,7 @@ function DetailInfo(props) {
 
 
     function TABMAIN() {
-        const tabArr = ["Basic", "Data Container"];
+        const tabArr = ["Basic", "Data Container", "References"];
         return (<>
             <div className='tabMain'>
                 <span className={curData.superType == 'product' ? "supertype_p"
@@ -171,16 +194,80 @@ function DetailInfo(props) {
                 })}
             </div>
             <div>
-                {
-                    curTab == 0 ? <TAB1></TAB1>
-                        : <>
-                            {curTab == 1 ? <TAB2></TAB2>
-                                : <></>}
-                        </>
-                }
+                {(() => { // 즉시 실행 함수로 감싸기
+                    switch (curTab) {
+                        case 0:
+                            return <TAB1 />;
+                        case 1:
+                            return <TAB2 />;
+                        case 2:
+                            return <TAB3 />;
+                        default:
+                            return null; // React에서 아무것도 안 그릴 때는 null이 더 권장됩니다.
+                    }
+                })()}
             </div>
         </>
         );
+    }
+
+    function TAB3() {
+        const referencesByReferenceTypes = curData.referencesByReferenceType;
+        if (referencesByReferenceTypes != undefined && referencesByReferenceTypes.length > 0) {
+            return (<>
+                {
+                    referencesByReferenceTypes.map(referencesByReferenceType => {
+                        return <REFTYPE referencesByReferenceType={referencesByReferenceType} />
+                    })
+                }
+
+            </>
+
+            );
+        } else {
+            return "";
+        }
+
+    }
+
+
+    function REFTYPE(props) {
+        const referencesByReferenceType = props.referencesByReferenceType;
+        if (referencesByReferenceType != undefined) {
+            const referenceType = referencesByReferenceType != undefined ? referencesByReferenceType.referenceType : null;
+            const referenceEntries = referencesByReferenceType != undefined ? referencesByReferenceType.referenceEntries : [];
+            // const attList = dataContainerType != undefined ? dataContainerType.validAttributes.sort((a, b) => a.name - b.name) : [];
+            // const dataContainers = dataContainer != undefined ? dataContainer.dataContainers : [];
+
+            return (
+                <>
+                    <div className='sectionLabel'>{referenceType.name}</div>
+                    <table className='tabStyle1'>
+                        <thead>
+                            <tr>
+                                <th>Target ID</th>
+                                <th>Target Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                referenceEntries.map(referenceEntry => {
+                                    return (
+                                        <tr>
+                                            <td>
+                                                <span className='pathlink' onClick={() => { getDetailData(referenceEntry.target.id, referenceEntry.target.__typename) }}>{referenceEntry.target.id}</span>
+                                            </td>
+                                            <td>{referenceEntry.target.name}</td>
+                                        </tr>
+                                    );
+                                })
+                            }
+                        </tbody>
+                    </table>
+                </>
+
+            )
+        }
     }
 
 
@@ -229,7 +316,7 @@ function DetailInfo(props) {
                                 dataContainers.map(obj => {
                                     return (
                                         <tr>
-                                            <td style={{ color: "gray" }}>{obj.id}</td>
+                                            <td>{obj.id}</td>
                                             {attList.map(validAttribute => {
                                                 return <>
                                                     <td>

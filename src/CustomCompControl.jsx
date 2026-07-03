@@ -223,7 +223,7 @@ function CustomCompControl(props) {
                                         <td>{index + 1}</td>
                                         <td>{obj.name}</td>
                                         <td>
-                                            <div style={{ display: 'flex' }}>
+                                            <div style={{ display: 'flex', justifyContent: 'center' }}>
                                                 <input type="text" className="Input versionInput" value={obj.toBeVersion} onChange={(e) => { changeTobeVersion(index, e) }} />
                                                 <div>
                                                     <input type="checkbox" className='Input DelChk' id={obj.name + "_isDeleted"} value={obj.isDel} onChange={(e) => { changeIsDel(index, e) }} />

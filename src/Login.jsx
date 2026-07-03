@@ -113,7 +113,8 @@ function Login() {
                     <div>
                         <div className='inputArea'>
                             <div>
-                                <input type="text" placeholder='STEP ID' className='Input loginInput' value={stepId} onChange={(e) => { setStepId(e.target.value) }}></input>
+                                <input type="text" placeholder='STEP ID' className='Input loginInput' value={stepId}
+                                    onKeyDown={(e) => { if (e.key == "Enter") { doLogin(); } }} onChange={(e) => { setStepId(e.target.value) }}></input>
                             </div>
 
                             <div style={{ position: "relative" }}>
