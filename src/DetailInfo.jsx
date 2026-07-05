@@ -201,7 +201,7 @@ function DetailInfo(props) {
                 })}
             </div>
             <div>
-                {(() => { // 즉시 실행 함수로 감싸기
+                {(() => {   // 즉시 실행 함수로 감싸기
                     switch (curTab) {
                         case 0:
                             return <TAB1 />;
