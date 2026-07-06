@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Logs
 logs
 *.log
@@ -24,6 +25,8 @@ dist-ssr
 *.sln
 *.sw?
 =======
+=======
+>>>>>>> 7e85ad289946d32844ec206a5a80f36cffced52d
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
@@ -60,4 +63,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+<<<<<<< HEAD
 >>>>>>> 0d7d90ed8c6e6956197155ff9fb22c4726f714b7
+=======
+>>>>>>> 7e85ad289946d32844ec206a5a80f36cffced52d
