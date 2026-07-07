@@ -1158,7 +1158,7 @@ input[id='decryption']:checked+.decryptedPw+.decryptingBtn {
 }
 
 .main_right {
-
+  overflow: scroll;
   display: flex;
   width: 100%;
 }
