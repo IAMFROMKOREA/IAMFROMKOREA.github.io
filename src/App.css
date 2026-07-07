@@ -399,7 +399,7 @@ input[type="checkbox"] {
 
 .popUpButton:has(button:focus)+.popUpMenu,
 .popUpMenu>div:hover {
-  transition: all 2s linear;
+  transition: all 0.3s linear;
   display: block;
   background-color: lightblue;
 }
@@ -589,9 +589,7 @@ input[type="checkbox"] {
 
 .detailArea {
   width: 100%;
-  overflow-y: scroll;
   height: 770px;
-  overflow-x: scroll;
   border: solid 1px;
   border-radius: 5px;
   padding: 5px;
@@ -1004,7 +1002,6 @@ button:hover {
 
 .currentDetail {
   color: #E10098 !important;
-  font-weight: bold;
 }
 
 

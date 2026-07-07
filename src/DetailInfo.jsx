@@ -36,7 +36,36 @@ function DetailInfo(props) {
     }, [isMainWS]);
 
 
-    function setValue(attid, value, isLov) {
+    function setValue(attid, value, isLov, setTempValue) {
+        let copyobj = { ...detailData };
+        if (attid == "name") {
+            setTempValue(value);
+        } else {
+            if (!isLov) {
+                setTempValue(value);
+            } else {
+                setTempValue([{ valueId: value }]);
+            }
+        }
+        //setCurData(copyobj);
+
+        // {
+        //     if (attid == "name") {
+        //         setNodeName(detailData.id, detailData.superType, value, callback_setValue);
+        //     } else {
+        //         if (!isLov) {
+        //             setNodeSimpleValue(detailData.id, detailData.superType, attid, value, callback_setValue);
+        //         } else {
+        //             setNodeValueById(detailData.id, detailData.superType, attid, value, callback_setValue);
+        //         }
+        //     }
+
+        // }
+
+    }
+
+    function setNodeValue(attid, value, isLov) {
+
         let copyobj = { ...detailData };
         if (attid == "name") {
             copyobj.name = value;
@@ -51,21 +80,18 @@ function DetailInfo(props) {
                 }
             });
         }
+        console.log("setNodeValue", copyobj);
         setCurData(copyobj);
 
-        {
-            if (attid == "name") {
-                setNodeName(detailData.id, detailData.superType, value, callback_setValue);
+        if (attid == "name") {
+            setNodeName(detailData.id, detailData.superType, value, callback_setValue);
+        } else {
+            if (!isLov) {
+                setNodeSimpleValue(detailData.id, detailData.superType, attid, value, callback_setValue);
             } else {
-                if (!isLov) {
-                    setNodeSimpleValue(detailData.id, detailData.superType, attid, value, callback_setValue);
-                } else {
-                    setNodeValueById(detailData.id, detailData.superType, attid, value, callback_setValue);
-                }
+                setNodeValueById(detailData.id, detailData.superType, attid, value, callback_setValue);
             }
-
         }
-
     }
 
     function getDetailData(stepId) {
@@ -166,11 +192,12 @@ function DetailInfo(props) {
     }
     function ATTVALUE(props) {
         const element = props.element;
+        const [tempValue, setTempValue] = useState(element.simpleValue);
         return (
             <>{element.attribute.listOfValuesBased ? <>
                 <select className="Input" key={element.attribute.id}
                     value={element.values.length > 0 && element.values[0].valueId != null ? element.values[0].valueId : ""}
-                    onChange={(event) => { setValue(element.attribute.id, event.target.value, true) }}
+                    onChange={(event) => { setNodeValue(element.attribute.id, event.target.value, true) }}
                     disabled={isMainWS == "true" && element.editable != false ? false : true}
                 >
                     <option value=""></option>
@@ -179,8 +206,10 @@ function DetailInfo(props) {
                     })}
                 </select>
             </> : <>
-                <input className="Input" key={element.attribute.id} type="text" value={element.simpleValue == null ? "" : element.simpleValue} onChange={(event) => { setValue(element.attribute.id, event.target.value, false) }}
+                <input className="Input" key={element.attribute.id} type="text" value={tempValue}
+                    onChange={(event) => setValue(element.attribute.id, event.target.value, false, setTempValue)}
                     style={{ width: "90%" }}
+                    onBlur={(event) => { setNodeValue(element.attribute.id, event.target.value, false) }}
                     disabled={isMainWS == "true" && element.editable != false && element.calculated != true ? false : true}
                 />
             </>}
@@ -419,7 +448,7 @@ function DetailInfo(props) {
                                 {curData.superType == "asset" && curData.contentUri != undefined && curData.contentUri.length > 0 ?
                                     <tr>
                                         <td>Attach File Link</td>
-                                        <td><a href={curData.contentUri} target="_blank">Download</a></td>
+                                        <td><a href={curData.contentUri} target="_blank"><img src="/icon/download.svg" width={17} height={17} />Download</a></td>
 
                                     </tr> : ""}
                             </> : <></>
