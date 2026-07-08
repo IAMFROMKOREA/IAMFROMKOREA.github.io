@@ -198,7 +198,7 @@ function DetailInfo(props) {
                 <select className="Input" key={element.attribute.id}
                     value={element.values.length > 0 && element.values[0].valueId != null ? element.values[0].valueId : ""}
                     onChange={(event) => { setNodeValue(element.attribute.id, event.target.value, true) }}
-                    disabled={isMainWS == "true" && element.editable != false ? false : true}
+                    disabled={isMainWS == "true" && element.inherited != true ? false : true}
                 >
                     <option value=""></option>
                     {element.attribute.listOfValues.valueEntries.pageElements.map((lov) => {
@@ -209,8 +209,12 @@ function DetailInfo(props) {
                 <input className="Input" key={element.attribute.id} type="text" value={tempValue}
                     onChange={(event) => setValue(element.attribute.id, event.target.value, false, setTempValue)}
                     style={{ width: "90%" }}
-                    onBlur={(event) => { setNodeValue(element.attribute.id, event.target.value, false) }}
-                    disabled={isMainWS == "true" && element.editable != false && element.calculated != true ? false : true}
+                    onBlur={(event) => {
+                        if (event.target.value != element.simpleValue) {
+                            setNodeValue(element.attribute.id, event.target.value, false)
+                        }
+                    }}
+                    disabled={isMainWS == "true" && element.calculated != true && element.inherited != true ? false : true}
                 />
             </>}
             </>);

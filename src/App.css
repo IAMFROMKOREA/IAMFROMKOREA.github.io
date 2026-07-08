@@ -14,7 +14,7 @@ body {
 
 input:disabled,
 select:disabled {
-  background-color: whitesmoke;
+  background-color: lightgray;
 }
 
 input[type="checkbox"] {
@@ -1092,6 +1092,7 @@ input[id='decryption']:checked+.decryptedPw+.decryptingBtn {
   transition: all 0.2s linear;
   width: 500px;
   display: flex;
+  position: relative;
 }
 
 .curDomain {
@@ -1314,11 +1315,12 @@ input[id='sourceSelectCheck']:checked+.sourceSelectSlide::after {
   display: flex;
   position: absolute;
   top: 6px;
-  left: -40px;
+  right: -10px;
   cursor: pointer;
   width: 50px;
   height: 50px;
   overflow: visible;
+  z-index: 999;
 }
 
 .imgArea {

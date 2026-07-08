@@ -344,6 +344,12 @@ function StepMain() {
             <div style={{ display: "flex", width: "100%", padding: '10px' }}>
 
                 <div id="main_left" className='main_left'>
+                    {curTabNo != 3 ? <>
+                        <div className='locationArea' onClick={() => doRefreshMain(100)}>
+                            {/* <div className='titleArea'></div> */}
+                            <div className='imgArea'><img src="/icon/location.svg" width={20} title='find location' /></div>
+                        </div>
+                    </> : ""}
                     <input type="checkbox" id="areaControl" style={{ display: "none" }} />
                     <div className='tabArea'>
                         <div className={curTabNo == 1 ? "curTab" : ""} onClick={() => { setCurTabNo(1); sessionStorage.setItem("curTabNo", 1) }}><img src="/icon/tree.svg" width={"12px"} /></div>
@@ -474,12 +480,7 @@ function StepMain() {
                 }
                 <div className='main_right'>
                     <div style={{ position: "relative", width: "20px" }}>
-                        {curTabNo != 3 ? <>
-                            <div className='locationArea' onClick={() => doRefreshMain(100)}>
-                                {/* <div className='titleArea'></div> */}
-                                <div className='imgArea'><img src="/icon/location.svg" width={20} title='find location' /></div>
-                            </div>
-                        </> : ""}
+
 
 
 
