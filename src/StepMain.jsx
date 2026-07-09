@@ -344,7 +344,7 @@ function StepMain() {
             <div style={{ display: "flex", width: "100%", padding: '10px' }}>
 
                 <div id="main_left" className='main_left'>
-                    {curTabNo != 3 ? <>
+                    {curTabNo === 1 ? <>
                         <div className='locationArea' onClick={() => doRefreshMain(100)}>
                             {/* <div className='titleArea'></div> */}
                             <div className='imgArea'><img src="/icon/location.svg" width={20} title='find location' /></div>
@@ -443,7 +443,7 @@ function StepMain() {
 
                                         <tr>
                                             <td colSpan={2} style={{ padding: "0px" }}>
-                                                <div style={{ display: "block" }}>
+                                                <div style={{ display: "flex", float: "right", margin: "5px" }}>
                                                     <div className='searchPanel_btn custombtn' onClick={addCondition}><img src="/icon/plus.svg" width={"15px"} title={"Add Condition"} />Add</div>
                                                     <div className='searchPanel_btn custombtn' onClick={doSearchData}><img src="/icon/search.svg" width={"15px"} title={"Search"} tabIndex={0} id="searchBtn" />Search</div>
                                                 </div>
