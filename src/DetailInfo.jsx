@@ -210,7 +210,8 @@ function DetailInfo(props) {
                     onChange={(event) => setValue(element.attribute.id, event.target.value, false, setTempValue)}
                     style={{ width: "90%" }}
                     onBlur={(event) => {
-                        if (event.target.value != element.simpleValue) {
+                        console.log("onBlur", "1:" + event.target.value, " 2:" + element.simpleValue);
+                        if (event.target.value != (element.simpleValue == null ? "" : element.simpleValue)) {
                             setNodeValue(element.attribute.id, event.target.value, false)
                         }
                     }}
