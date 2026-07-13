@@ -344,136 +344,140 @@ function StepMain() {
             <div style={{ display: "flex", width: "100%", padding: '10px' }}>
 
                 <div id="main_left" className='main_left'>
-                    {curTabNo === 1 ? <>
-                        <div className='locationArea' onClick={() => doRefreshMain(100)}>
-                            {/* <div className='titleArea'></div> */}
-                            <div className='imgArea'><img src="/icon/location.svg" width={20} title='find location' /></div>
-                        </div>
-                    </> : ""}
                     <input type="checkbox" id="areaControl" style={{ display: "none" }} />
+                    <div className='areaControl'>
+                        <label htmlFor='areaControl'>⇆</label>
+                    </div>
                     <div className='tabArea'>
                         <div className={curTabNo == 1 ? "curTab" : ""} onClick={() => { setCurTabNo(1); sessionStorage.setItem("curTabNo", 1) }}><img src="/icon/tree.svg" width={"12px"} /></div>
                         <div className={curTabNo == 2 ? "curTab" : ""} onClick={() => { setCurTabNo(2); sessionStorage.setItem("curTabNo", 2) }}><img src="/icon/search.svg" width={"12px"} /></div>
                         <div className={curTabNo == 3 ? "curTab" : ""} onClick={() => { setCurTabNo(3); sessionStorage.setItem("curTabNo", 3) }}><img src="/icon/cloud.svg" width={"12px"} /></div>
                     </div>
-                    {//Tree Tab===========================================================================================
-                        curTabNo == 1 ? <>
-                            <div className='treeArea' id="curTabArea" >
-                                {classificationData !== null && classificationData.id !== undefined ? <>
-                                    <TreeElement parentData={classificationData} superType={"classification"} area={curTabArea} />
-                                </> : ""}
-                                {entityData !== null && entityData.id !== undefined ? <>
-                                    <TreeElement parentData={entityData} superType={"entity"} area={curTabArea} />
-                                </> : ""}
-                                {productData !== null && productData.id !== undefined ? <>
-                                    <TreeElement parentData={productData} superType={"product"} area={curTabArea} />
-                                </> : ""}
+                    <div className='blockArea'>
+                        {//Tree Tab===========================================================================================
+                            curTabNo == 1 ? <>
+                                <div className='locationArea' onClick={() => doRefreshMain(100)}>
+                                    {/* <div className='titleArea'></div> */}
+                                    <div className='imgArea'><img src="/icon/location.svg" width={20} title='find location' /></div>
+                                </div>
+                                <div className='treeArea' id="curTabArea" >
+                                    {classificationData !== null && classificationData.id !== undefined ? <>
+                                        <TreeElement parentData={classificationData} superType={"classification"} area={curTabArea} />
+                                    </> : ""}
+                                    {entityData !== null && entityData.id !== undefined ? <>
+                                        <TreeElement parentData={entityData} superType={"entity"} area={curTabArea} />
+                                    </> : ""}
+                                    {productData !== null && productData.id !== undefined ? <>
+                                        <TreeElement parentData={productData} superType={"product"} area={curTabArea} />
+                                    </> : ""}
 
-                            </div>
-                        </> : <></>}
-                    {//Search Tab===========================================================================================
-                        curTabNo == 2 ? <>
-                            <div className='searchArea' id="curTabArea" >
-                                <table className='tabStyle2'>
-                                    <colgroup>
-                                        <col width={'30%'}></col>
-                                    </colgroup>
-                                    <tbody>
+                                </div>
+                            </> : <></>}
+                        {//Search Tab===========================================================================================
+                            curTabNo == 2 ? <>
+                                <div className='searchArea' id="curTabArea" >
+                                    <table className='tabStyle2'>
+                                        <colgroup>
+                                            <col width={'30%'}></col>
+                                        </colgroup>
+                                        <tbody>
 
-                                        {conditionArr.map((obj, index) => {
-                                            if (index < 2) {
-                                                return <tr>
-                                                    <td>{obj.id}</td>
-                                                    <td>
-                                                        <input className='Input searchConInput' type="text" key="searchCon_id" id="searchCon_id"
-                                                            onChange={(e) => { updateConditionArr(index, e, true) }} value={conditionArr[index].value} autoComplete='off' />
-                                                    </td>
-                                                </tr>
-                                            } else {
-                                                return <tr>
-                                                    <td>
-                                                        <div style={{ position: "relative" }}>
-                                                            <input className='Input' type="text" key={"searchLabel" + index}
-                                                                style={{ width: "100px" }}
-                                                                id={"searchLabel" + index}
-                                                                onChange={(e) => { updateConditionArr(index, e, false) }} value={conditionArr[index].id} autoComplete='off' />
-
-                                                            <div className='attListArea'>
-                                                                {attListArr.map((attObj) => {
-                                                                    return <div onClick={() => { selectAttributeId(index, attObj.id, attObj.listOfValues) }}>
-                                                                        {attObj.name}({attObj.id})
-                                                                    </div>
-                                                                })}
-                                                            </div>
-                                                        </div>
-
-                                                    </td>
-                                                    <td>
-                                                        <div style={{ display: "flex" }}>
+                                            {conditionArr.map((obj, index) => {
+                                                if (index < 2) {
+                                                    return <tr>
+                                                        <td>{obj.id}</td>
+                                                        <td>
+                                                            <input className='Input searchConInput' type="text" key="searchCon_id" id="searchCon_id"
+                                                                onChange={(e) => { updateConditionArr(index, e, true) }} value={conditionArr[index].value} autoComplete='off' />
+                                                        </td>
+                                                    </tr>
+                                                } else {
+                                                    return <tr>
+                                                        <td>
                                                             <div style={{ position: "relative" }}>
-                                                                <input className='Input searchConInput' type="text" key={"searchCon" + index}
-                                                                    id={"searchCon" + index} onChange={(e) => { updateConditionArr(index, e, true) }}
-                                                                    value={conditionArr[index].value} autoComplete='off' />
-                                                                <div className='attValueListArea' id={"attValueListArea_" + index}>
-                                                                    {attValueListArr[index].valueList.filter(valueObj => valueObj.value.indexOf(conditionArr[index].value) >= 0).map((valueObj) => {
-                                                                        return <div id={"attValue_" + index + "_" + valueObj.value.replaceAll(" ", "")} onClick={() => { selectAttributeValue(index, valueObj.value) }}
-                                                                        >
-                                                                            {conditionArr[index].value != null && conditionArr[index].value.length > 0 ? <>
-                                                                                {valueObj.value.split(conditionArr[index].value)[0]}
-                                                                                <b>{conditionArr[index].value}</b>
-                                                                                {valueObj.value.split(conditionArr[index].value)[1]}
-                                                                            </> : <>{valueObj.value}</>}
+                                                                <input className='Input' type="text" key={"searchLabel" + index}
+                                                                    style={{ width: "100px" }}
+                                                                    id={"searchLabel" + index}
+                                                                    onChange={(e) => { updateConditionArr(index, e, false) }} value={conditionArr[index].id} autoComplete='off' />
 
+                                                                <div className='attListArea'>
+                                                                    {attListArr.map((attObj) => {
+                                                                        return <div onClick={() => { selectAttributeId(index, attObj.id, attObj.listOfValues) }}>
+                                                                            {attObj.name}({attObj.id})
                                                                         </div>
                                                                     })}
                                                                 </div>
                                                             </div>
 
-                                                            <div className='searchPanel_btn' onClick={() => removeCondition(index)}>
-                                                                <img src="/icon/minus.svg" width={15}></img>
+                                                        </td>
+                                                        <td>
+                                                            <div style={{ display: "flex" }}>
+                                                                <div style={{ position: "relative" }}>
+                                                                    <input className='Input searchConInput' type="text" key={"searchCon" + index}
+                                                                        id={"searchCon" + index} onChange={(e) => { updateConditionArr(index, e, true) }}
+                                                                        value={conditionArr[index].value} autoComplete='off' />
+                                                                    <div className='attValueListArea' id={"attValueListArea_" + index}>
+                                                                        {attValueListArr[index].valueList.filter(valueObj => valueObj.value.indexOf(conditionArr[index].value) >= 0).map((valueObj) => {
+                                                                            return <div id={"attValue_" + index + "_" + valueObj.value.replaceAll(" ", "")} onClick={() => { selectAttributeValue(index, valueObj.value) }}
+                                                                            >
+                                                                                {conditionArr[index].value != null && conditionArr[index].value.length > 0 ? <>
+                                                                                    {valueObj.value.split(conditionArr[index].value)[0]}
+                                                                                    <b>{conditionArr[index].value}</b>
+                                                                                    {valueObj.value.split(conditionArr[index].value)[1]}
+                                                                                </> : <>{valueObj.value}</>}
+
+                                                                            </div>
+                                                                        })}
+                                                                    </div>
+                                                                </div>
+
+                                                                <div className='searchPanel_btn' onClick={() => removeCondition(index)}>
+                                                                    <img src="/icon/minus.svg" width={15}></img>
+                                                                </div>
+
                                                             </div>
 
-                                                        </div>
+                                                        </td>
+                                                    </tr>
+                                                }
 
-                                                    </td>
-                                                </tr>
-                                            }
+                                            })}
 
-                                        })}
+                                            <tr>
+                                                <td colSpan={2} style={{ padding: "0px" }}>
+                                                    <div style={{ display: "flex", float: "right", margin: "5px" }}>
+                                                        <div className='searchPanel_btn custombtn' onClick={addCondition}><img src="/icon/plus.svg" width={"15px"} title={"Add Condition"} />Add</div>
+                                                        <div className='searchPanel_btn custombtn' onClick={doSearchData}><img src="/icon/search.svg" width={"15px"} title={"Search"} tabIndex={0} id="searchBtn" />Search</div>
+                                                    </div>
 
-                                        <tr>
-                                            <td colSpan={2} style={{ padding: "0px" }}>
-                                                <div style={{ display: "flex", float: "right", margin: "5px" }}>
-                                                    <div className='searchPanel_btn custombtn' onClick={addCondition}><img src="/icon/plus.svg" width={"15px"} title={"Add Condition"} />Add</div>
-                                                    <div className='searchPanel_btn custombtn' onClick={doSearchData}><img src="/icon/search.svg" width={"15px"} title={"Search"} tabIndex={0} id="searchBtn" />Search</div>
-                                                </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    {resultArr.length > 0 ? <>
+                                        <div className='searchPanel_resultArea'>
+                                            <div className='resultCntArea'>Result: {resultArr.length}</div>
+                                            {resultArr.map((element) => {
+                                                return <div className="resultElement" onClick={() => { setDetailData(element) }}>
+                                                    <span className={element.superType == 'product' ? "supertype_p" : "supertype_e"}></span>
+                                                    <div className={detailData.id == element.id ? "currentDetail" : ""}>{element.name}({element.id})</div>
+                                                </div>;
+                                            })}
+                                        </div>
+                                    </> : <></>}
 
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                {resultArr.length > 0 ? <>
-                                    <div className='searchPanel_resultArea'>
-                                        <div className='resultCntArea'>Result: {resultArr.length}</div>
-                                        {resultArr.map((element) => {
-                                            return <div className="resultElement" onClick={() => { setDetailData(element) }}>
-                                                <span className={element.superType == 'product' ? "supertype_p" : "supertype_e"}></span>
-                                                <div className={detailData.id == element.id ? "currentDetail" : ""}>{element.name}({element.id})</div>
-                                            </div>;
-                                        })}
-                                    </div>
-                                </> : <></>}
+                                </div>
+                            </> : <></>}
 
-                            </div>
-                        </> : <></>}
+                    </div>
 
+                    {//System management Tab===========================================================================================
+                        curTabNo == 3 ? <>
+
+                        </> : ""
+                    }
                 </div>
 
-                {//System management Tab===========================================================================================
-                    curTabNo == 3 ? <>
-
-                    </> : ""
-                }
 
 
                 { //Main Right===========================================================================================
@@ -481,12 +485,9 @@ function StepMain() {
                 <div className='main_right'>
                     <div style={{ position: "relative", width: "20px" }}>
 
-
-
-
-                        <div className='areaControl'>
+                        {/* <div className='areaControl'>
                             <label htmlFor='areaControl'>⟨⟩</label>
-                        </div>
+                        </div> */}
 
                         {curTabNo != 3 ? <>
                             <ScrollToTop area={curTabArea} />

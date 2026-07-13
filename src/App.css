@@ -40,7 +40,7 @@ input[type="checkbox"] {
   display: flex;
   justify-content: start;
   align-items: center;
-  color: white;
+  color: black;
 
   font-size: 40px;
   font-weight: 500;
@@ -634,10 +634,15 @@ button:hover {
   top: 5px;
 }
 
-.main_left:has([id='areaControl']:checked)+.main_right .locationArea,
+
+
+.main_left:has([id='areaControl']:checked) .locationArea,
+.main_left:has([id='areaControl']:checked)>.blockArea label,
 .main_left:has([id='areaControl']:checked)+.main_right .top-btn-container {
   display: none;
 }
+
+
 
 /* .top-btn {
 
@@ -761,15 +766,22 @@ button:hover {
 .areaControl {
   color: white;
   font-size: 30px;
-  height: 575px;
   display: flex;
   justify-content: center;
   align-items: center;
   user-select: none;
+  position: absolute;
+  top: 300px;
+  right: -25px;
+  z-index: 999;
 }
 
 .areaControl>label {
   cursor: pointer;
+  font-size: 20px;
+  width: 30px;
+  height: 30px;
+
 }
 
 .areaControl>label:hover,
@@ -1002,6 +1014,7 @@ button:hover {
 
 .currentDetail {
   color: #E10098 !important;
+  background-color: #93c3ca;
 }
 
 
@@ -1086,11 +1099,19 @@ input[id='decryption']:checked+.decryptedPw+.decryptingBtn {
   border-right: solid 1px whitesmoke;
 }
 
+.blockArea {
+  display: block;
+  width: 400px;
+}
+
+.blockArea>div:nth-child(1) {
+  background-color: transparent;
+}
+
 .main_left {
   border: solid 1px lightgray;
   border-radius: 5px;
   transition: all 0.2s linear;
-  width: 500px;
   display: flex;
   position: relative;
 }
@@ -1161,7 +1182,7 @@ input[id='decryption']:checked+.decryptedPw+.decryptingBtn {
   width: 100%;
 }
 
-.main_left:has(input[id='areaControl']:checked) {
+.main_left:has(input[id='areaControl']:checked)>.blockArea {
   transition: all 0.2s linear;
   width: 0px;
 }
@@ -1314,11 +1335,11 @@ input[id='sourceSelectCheck']:checked+.sourceSelectSlide::after {
 .locationArea {
   display: flex;
   position: absolute;
-  top: 6px;
-  right: -10px;
+  top: 15px;
+  right: 29px;
   cursor: pointer;
-  width: 50px;
-  height: 50px;
+  /* width: 50px; */
+  /* height: 50px; */
   overflow: visible;
   z-index: 999;
 }
