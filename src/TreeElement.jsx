@@ -54,10 +54,10 @@ function TreeElement(props) {
 
     }, [detailData.path])
 
-    function canGetChildDatas(){
-        if ((sessionChildInfo + "") == 'null' && (parentData.hasChildren || (parentData.assets != undefined  && parentData.assets.pageElements.length > 0 ) ) ) {//자식노드가 닫혀있을떄 실행된 경우 자식노드를  가져오기 수행
+    function canGetChildDatas() {
+        if ((sessionChildInfo + "") == 'null' && (parentData.hasChildren || (parentData.assets != undefined && parentData.assets.pageElements.length > 0))) {//자식노드가 닫혀있을떄 실행된 경우 자식노드를  가져오기 수행
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -89,12 +89,12 @@ function TreeElement(props) {
             let children = tempObj.children.pageElements;
             sessionStorage.setItem("tree_child_" + parentData.id, JSON.stringify({ superType: props.superType, children: children }));
 
-            if(tempObj.assets != undefined && tempObj.assets.pageElements.length > 0){
+            if (tempObj.assets != undefined && tempObj.assets.pageElements.length > 0) {
                 let children_asset = tempObj.assets.pageElements;
                 sessionStorage.setItem("tree_childasset_" + parentData.id, JSON.stringify({ superType: "asset", children: children_asset }));
             }
 
-            
+
             setParentData(tempObj);
         } catch (e) {
             console.error(e);
@@ -218,10 +218,10 @@ function TreeElement(props) {
                                 Delete Node
                             </div>
                         </div>
-                        <span className={props.superType == 'product' ? "supertype_p" 
-                                        :props.superType == 'entity' ? "supertype_e"
-                                        :props.superType == 'classification' ? "supertype_c"
-                                        :props.superType == 'asset' ? "supertype_a":""}></span>
+                        <span className={props.superType == 'product' ? "supertype_p"
+                            : props.superType == 'entity' ? "supertype_e"
+                                : props.superType == 'classification' ? "supertype_c"
+                                    : props.superType == 'asset' ? "supertype_a" : ""}></span>
                         <div onClick={() => { getDetailInfo(parentData.id) }} className={parentData.id == detailData.id ? "currentDetail" : ""} >
                             {parentData.name != null && parentData.name.length > 0 ? <>
                                 {parentData.name}
@@ -256,12 +256,13 @@ function TreeElement(props) {
                     <div className='objTypeSelect' style={{ display: showPopup ? "" : "none" }}>
 
                         <div>
-                            <div className='popupTop' onClick={() => setShowPopup(false)}>
-                                <img src="/icon/close.svg" width={15}></img>
+                            <div className='popupTop'>
+                                <div>Select Object Type</div>
+                                <div><img src="/icon/close.svg" onClick={() => setShowPopup(false)} width={15}></img></div>
                             </div>
                             {parentData.objectType.children.length > 0 ? <>
 
-                                <div>Select Object Type</div>
+
                                 <div>
                                     {parentData.objectType.children.map((obj) => {
                                         return (

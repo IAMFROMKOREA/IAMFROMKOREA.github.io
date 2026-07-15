@@ -464,7 +464,7 @@ input[type="checkbox"] {
   background-color: darkgray;
   margin-bottom: 2px;
   padding: 3px;
-  text-align: center;
+  text-align: start;
   font-weight: bold;
   border: solid 2px lightgray;
 }
@@ -483,6 +483,13 @@ input[type="checkbox"] {
   display: flex;
   justify-content: end;
   cursor: pointer;
+  margin-bottom: 10px;
+
+}
+
+.popupTop>div:nth-child(1) {
+  width: 100%;
+  text-align: start;
 
 }
 
@@ -588,11 +595,12 @@ input[type="checkbox"] {
 }
 
 .detailArea {
-  width: 100%;
   height: 770px;
-  border: solid 1px;
+  /* border: solid 1px; */
   border-radius: 5px;
   padding: 5px;
+  /* width: 100%; */
+  width: stretch;
 }
 
 button {
@@ -1180,6 +1188,8 @@ input[id='decryption']:checked+.decryptedPw+.decryptingBtn {
   overflow: scroll;
   display: flex;
   width: 100%;
+  padding-left: 20px;
+
 }
 
 .main_left:has(input[id='areaControl']:checked)>.blockArea {
@@ -1252,7 +1262,8 @@ input[id='decryption']:checked+.decryptedPw+.decryptingBtn {
   display: flex;
   justify-content: end;
   border-bottom: solid 1px white;
-  margin-top: 7px;
+  padding-top: 7px;
+  padding-bottom: 7px;
 
 }
 

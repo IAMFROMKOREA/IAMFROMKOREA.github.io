@@ -349,9 +349,9 @@ function StepMain() {
                         <label htmlFor='areaControl'>⇆</label>
                     </div>
                     <div className='tabArea'>
-                        <div className={curTabNo == 1 ? "curTab" : ""} onClick={() => { setCurTabNo(1); sessionStorage.setItem("curTabNo", 1) }}><img src="/icon/tree.svg" width={"12px"} /></div>
-                        <div className={curTabNo == 2 ? "curTab" : ""} onClick={() => { setCurTabNo(2); sessionStorage.setItem("curTabNo", 2) }}><img src="/icon/search.svg" width={"12px"} /></div>
-                        <div className={curTabNo == 3 ? "curTab" : ""} onClick={() => { setCurTabNo(3); sessionStorage.setItem("curTabNo", 3) }}><img src="/icon/cloud.svg" width={"12px"} /></div>
+                        <div className={curTabNo == 1 ? "curTab" : ""} onClick={() => { setCurTabNo(1); sessionStorage.setItem("curTabNo", 1); document.getElementById("areaControl").checked = false; }}><img src="/icon/tree.svg" width={"12px"} /></div>
+                        <div className={curTabNo == 2 ? "curTab" : ""} onClick={() => { setCurTabNo(2); sessionStorage.setItem("curTabNo", 2); document.getElementById("areaControl").checked = false; }}><img src="/icon/search.svg" width={"12px"} /></div>
+                        <div className={curTabNo == 3 ? "curTab" : ""} onClick={() => { setCurTabNo(3); sessionStorage.setItem("curTabNo", 3); }}><img src="/icon/cloud.svg" width={"12px"} /></div>
                     </div>
                     <div className='blockArea'>
                         {//Tree Tab===========================================================================================
@@ -483,17 +483,6 @@ function StepMain() {
                 { //Main Right===========================================================================================
                 }
                 <div className='main_right'>
-                    <div style={{ position: "relative", width: "20px" }}>
-
-                        {/* <div className='areaControl'>
-                            <label htmlFor='areaControl'>⟨⟩</label>
-                        </div> */}
-
-                        {curTabNo != 3 ? <>
-                            <ScrollToTop area={curTabArea} />
-                        </> : ""}
-
-                    </div>
 
                     {curTabNo < 3 ? <>
                         <div className='detailArea'>
