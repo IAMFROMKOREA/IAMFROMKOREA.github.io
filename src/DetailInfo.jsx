@@ -94,21 +94,21 @@ function DetailInfo(props) {
         }
     }
 
-    function getDetailData(stepId) {
-        setIsLoading(true);
-        getData(stepId, detailData.superType, callback_getDetailData)
-    }
+    // function getDetailData(stepId) {
+    //     console.log("getDetailData", stepId, detailData.superType);
+    //     setIsLoading(true);
+    //     getData(stepId, detailData.superType, callback_getDetailData)
+    // }
 
 
     function getDetailData(stepId, superType) {
+        superType == null || superType.length == 0 ? superType = detailData.superType : superType = superType;
         if (superType == undefined || superType.length == 0) {
         } else {
             console.log("getDetailData", stepId, superType.toLowerCase());
             setIsLoading(true);
             getData(stepId, superType.toLowerCase(), callback_getDetailData)
         }
-
-
     }
 
     function callback_getDetailData(data) {
@@ -436,7 +436,7 @@ function DetailInfo(props) {
                                     <td>
                                         {curData.path.map((element, index) => {
                                             return (
-                                                <span className='pathlink' onClick={() => { getDetailData(element.id) }}>
+                                                <span className='pathlink' onClick={() => { console.log("pathlink click", element.id); getDetailData(element.id); }}>
                                                     {element.name}({element.id})
                                                     {curData.path.length - 1 == index ? <>
 
