@@ -2,7 +2,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import TreeElement from './TreeElement';
 import DetailInfo from './DetailInfo';
-import { cloneObject, getAssetData, getClassificationData, getData, getEntityData, getProductData, scrollToCurId, searchAttribute, searchData, searchDataByIdOrName } from './ApiTest';
+import { cloneObject, getAssetData, getClassificationData, getData, getEntityData, getProductData, scrollToCurId, searchAttribute, searchData, searchDataByIdOrName, getTopProductData } from './ApiTest';
 import ScrollToTop from './ScrollToTop';
 import { AppContext } from './App';
 import CustomCompControl from './CustomCompControl';
@@ -47,8 +47,11 @@ function StepMain() {
                 setEntityData(data.data.entity);
             });
 
-            getProductData("Product hierarchy root", (data) => {
-                setProductData(data.data.product);
+            // getProductData("Product hierarchy root", (data) => {
+            //     setProductData(data.data.product);
+            // });
+            getTopProductData((data) => {
+                setProductData(data.data.topProduct);
             });
             getClassificationData("Classification 1 root", (data) => {
                 setClassificationData(data.data.classification)

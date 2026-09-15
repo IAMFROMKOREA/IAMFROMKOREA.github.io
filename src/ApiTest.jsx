@@ -391,6 +391,27 @@ function getProductData(stepId, callBack) {
     callGraphQL(query, { "id": stepId }, callBack);
 }
 
+function getTopProductData(callBack) {
+    let query = "query _query {\r\n"
+        + "  topProduct(context: \"Context1\", workspace: #WORKSPACE#) {\r\n"
+        + tag.basic
+        + tag.values
+        + tag.dataContainers
+        + tag.referencesByReferenceType
+        + tag.objectType
+        + "    children {\r\n"
+        + "      pageElements {\r\n"
+        + "        id\r\n"
+        + "        name\r\n"
+        + "        hasChildren\r\n"
+        + tag.objectType
+        + "      }\r\n"
+        + "    }\r\n"
+        + "  }\r\n"
+        + "}";
+    callGraphQL(query, {}, callBack);
+}
+
 
 function getAssetData(stepId, callBack) {
     let query = "query _query($id: String!) {\r\n"
@@ -600,5 +621,5 @@ export {
     getData, getCarData, getEntityData, getToken, cloneObject, getProductData, getTopEntityRoot, createEntityData,
     createData, createProductData, setNodeSimpleValue, setNodeValueById, setNodeName, searchData, searchAttribute,
     setPathChildDataToSession, scrollToCurId, deleteData, getExtensionInfo, putExtensionInfo, searchDataByIdOrName,
-    doRestartServer, getTokenWithDomain, getAssetData, getClassificationData, doRestartAppServer, SUPERTYPE
+    doRestartServer, getTokenWithDomain, getAssetData, getClassificationData, doRestartAppServer, SUPERTYPE, getTopProductData
 };
