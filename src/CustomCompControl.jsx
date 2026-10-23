@@ -34,11 +34,12 @@ function CustomCompControl(props) {
         //     setInit(true);
         // }
         document.getElementById("areaControl").checked = true;
-        if (props.isCurSource) {
+        {
+
             getExtensionInfo("current", (returnObj) => {
                 setCurrentExtension(returnObj.data);
             });
-        } else {
+
             getExtensionInfo("desired", (returnObj) => {
                 let tempData = returnObj.data;
                 tempData.map((obj, index) => {
@@ -48,7 +49,23 @@ function CustomCompControl(props) {
                 });
                 setDesiredExtension(tempData);
             });
+
         }
+        // if (props.isCurSource) {
+        //     getExtensionInfo("current", (returnObj) => {
+        //         setCurrentExtension(returnObj.data);
+        //     });
+        // } else {
+        //     getExtensionInfo("desired", (returnObj) => {
+        //         let tempData = returnObj.data;
+        //         tempData.map((obj, index) => {
+        //             obj.isNew = false;
+        //             obj.toBeVersion = obj.version;
+        //             obj.isDel = false;
+        //         });
+        //         setDesiredExtension(tempData);
+        //     });
+        // }
     }, [props.isCurSource]);
 
 
