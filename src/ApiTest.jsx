@@ -118,6 +118,57 @@ const typeids = {
     asset: "Asset"
 }
 
+let queryForSuperType = "query _query($condition: ConditionInput!){\r\n"
+
+    + "  data_asset:searchForAssets(context: \"Context1\", workspace: #WORKSPACE#,   \r\n"
+    + "    condition: $condition\r\n"
+    + "    ) {\r\n"
+    + "    pageElements {\r\n"
+    + "    id\r\n"
+    + "    name\r\n"
+    + "    currentRevision\r\n"
+    + "    currentRevisionLastEdited\r\n"
+    + "    approvalStatus\r\n"
+    + "    path { id name }\r\n"
+    + tag.values
+    + tag.objectType
+    + tag.referencesByReferenceType
+    + "     }\r\n"
+    + "  }\r\n"
+    + "  data_classification:searchForClassifications(context: \"Context1\", workspace: #WORKSPACE#,   \r\n"
+    + "    condition: $condition\r\n"
+    + "    ) {\r\n"
+    + "    pageElements {\r\n"
+    + tag.basic
+    + tag.values
+    + tag.objectType
+    + tag.referencesByReferenceType
+    + "    }\r\n"
+    + "  }\r\n"
+    + "  data_entity:searchForEntities(context: \"Context1\", workspace: #WORKSPACE#,   \r\n"
+    + "    condition: $condition\r\n"
+    + "    ) {\r\n"
+    + "    pageElements {\r\n"
+    + tag.basic
+    + tag.values
+    + tag.dataContainers
+    + tag.objectType
+    + tag.referencesByReferenceType
+    + "    }\r\n"
+    + "  }\r\n"
+    + "  data_product:searchForProducts(context: \"Context1\", workspace: #WORKSPACE#,    \r\n"
+    + "    condition: $condition\r\n"
+    + "    ) {\r\n"
+    + "    pageElements {\r\n"
+    + tag.basic
+    + tag.values
+    + tag.dataContainers
+    + tag.objectType
+    + tag.referencesByReferenceType
+    + "    }\r\n"
+    + "  }\r\n"
+    + "}";
+
 function getCarData(callBack) {
     let formData = new FormData();
     formData.append("compCd", "H");
@@ -133,30 +184,30 @@ function getCarData(callBack) {
 
 
 function searchData(conditions, callBack) {
-    let query = "query _query($condition: ConditionInput!){\r\n"
-        + "  data_entity:searchForEntities(context: \"Context1\", workspace: #WORKSPACE#,   \r\n"
-        + "    condition: $condition\r\n"
-        + "    ) {\r\n"
-        + "    pageElements {\r\n"
-        + tag.basic
-        + tag.values
-        + tag.dataContainers
-        + tag.objectType
-        + "    }\r\n"
-        + "  }\r\n"
-        + "  \r\n"
-        + "  data_product:searchForProducts(context: \"Context1\", workspace: #WORKSPACE#,    \r\n"
-        + "    condition: $condition\r\n"
-        + "    ) {\r\n"
-        + "    pageElements {\r\n"
-        + tag.basic
-        + tag.values
-        + tag.dataContainers
-        + tag.objectType
-        + tag.referencesByReferenceType
-        + "    }\r\n"
-        + "  }\r\n"
-        + "}";
+    // let query = "query _query($condition: ConditionInput!){\r\n"
+    //     + "  data_entity:searchForEntities(context: \"Context1\", workspace: #WORKSPACE#,   \r\n"
+    //     + "    condition: $condition\r\n"
+    //     + "    ) {\r\n"
+    //     + "    pageElements {\r\n"
+    //     + tag.basic
+    //     + tag.values
+    //     + tag.dataContainers
+    //     + tag.objectType
+    //     + "    }\r\n"
+    //     + "  }\r\n"
+    //     + "  \r\n"
+    //     + "  data_product:searchForProducts(context: \"Context1\", workspace: #WORKSPACE#,    \r\n"
+    //     + "    condition: $condition\r\n"
+    //     + "    ) {\r\n"
+    //     + "    pageElements {\r\n"
+    //     + tag.basic
+    //     + tag.values
+    //     + tag.dataContainers
+    //     + tag.objectType
+    //     + tag.referencesByReferenceType
+    //     + "    }\r\n"
+    //     + "  }\r\n"
+    //     + "}";
     let condition;
     if (conditions.length > 1) {
         condition = { and: { conditions: conditions } };
@@ -165,38 +216,38 @@ function searchData(conditions, callBack) {
     }
 
 
-    callGraphQL(query, { "condition": condition }, callBack);
+    callGraphQL(queryForSuperType, { "condition": condition }, callBack);
 }
 
 
 
 function searchDataByIdOrName(conditionValue, callBack) {
-    let query = "query _query($condition: ConditionInput!){\r\n"
-        + "  data_entity:searchForEntities(context: \"Context1\", workspace: #WORKSPACE#, first:20,  \r\n"
-        + "    condition: $condition\r\n"
-        + "    ) {\r\n"
-        + "    pageElements {\r\n"
-        + tag.basic
-        + tag.values
-        + tag.dataContainers
-        + tag.objectType
-        + "    }\r\n"
-        + "  }\r\n"
-        + "  \r\n"
-        + "  data_product:searchForProducts(context: \"Context1\", workspace: #WORKSPACE#, first:20,   \r\n"
-        + "    condition: $condition\r\n"
-        + "    ) {\r\n"
-        + "    pageElements {\r\n"
-        + tag.basic
-        + tag.values
-        + tag.dataContainers
-        + tag.objectType
-        + tag.referencesByReferenceType
-        + "    }\r\n"
-        + "  }\r\n"
-        + "}";
+    // let query = "query _query($condition: ConditionInput!){\r\n"
+    //     + "  data_entity:searchForEntities(context: \"Context1\", workspace: #WORKSPACE#, first:20,  \r\n"
+    //     + "    condition: $condition\r\n"
+    //     + "    ) {\r\n"
+    //     + "    pageElements {\r\n"
+    //     + tag.basic
+    //     + tag.values
+    //     + tag.dataContainers
+    //     + tag.objectType
+    //     + "    }\r\n"
+    //     + "  }\r\n"
+    //     + "  \r\n"
+    //     + "  data_product:searchForProducts(context: \"Context1\", workspace: #WORKSPACE#, first:20,   \r\n"
+    //     + "    condition: $condition\r\n"
+    //     + "    ) {\r\n"
+    //     + "    pageElements {\r\n"
+    //     + tag.basic
+    //     + tag.values
+    //     + tag.dataContainers
+    //     + tag.objectType
+    //     + tag.referencesByReferenceType
+    //     + "    }\r\n"
+    //     + "  }\r\n"
+    //     + "}";
 
-    callGraphQL(query, { "condition": { or: { conditions: [{ id: { queryString: conditionValue + "*", operator: "like" } }, { name: { queryString: conditionValue + "*", operator: "like" } }] } } }, callBack);
+    callGraphQL(queryForSuperType, { "condition": { or: { conditions: [{ id: { queryString: conditionValue + "*", operator: "like" } }, { name: { queryString: conditionValue + "*", operator: "like" } }] } } }, callBack);
 }
 
 

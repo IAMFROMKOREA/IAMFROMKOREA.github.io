@@ -198,6 +198,8 @@ function StepMain() {
             searchDataByIdOrName(conditionValue, (data) => {
                 let data_entity = data.data.data_entity.pageElements;
                 let data_product = data.data.data_product.pageElements;
+                let data_asset = data.data.data_asset.pageElements;
+                let data_classification = data.data.data_classification.pageElements;
                 let tempArr = [];
 
                 data_entity.map((obj) => {
@@ -206,6 +208,14 @@ function StepMain() {
                 })
                 data_product.map((obj) => {
                     obj.superType = "product";
+                    tempArr = [...tempArr, obj];
+                })
+                data_asset.map((obj) => {
+                    obj.superType = "asset";
+                    tempArr = [...tempArr, obj];
+                })
+                data_classification.map((obj) => {
+                    obj.superType = "classification";
                     tempArr = [...tempArr, obj];
                 })
                 setSearchListByIdOrName(tempArr);
@@ -221,12 +231,20 @@ function StepMain() {
     function callback_doSearchData(data) {
         let data_entity = data.data.data_entity.pageElements;
         let data_product = data.data.data_product.pageElements;
+        let data_asset = data.data.data_asset.pageElements;
+        let data_classification = data.data.data_classification.pageElements;
 
         data_entity.map((obj) => {
             obj.superType = "entity";
         })
         data_product.map((obj) => {
             obj.superType = "product";
+        })
+        data_asset.map((obj) => {
+            obj.superType = "asset";
+        })
+        data_classification.map((obj) => {
+            obj.superType = "classification";
         })
 
         let tempResultArr = [...data_entity, ...data_product];
