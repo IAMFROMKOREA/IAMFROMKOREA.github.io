@@ -615,7 +615,6 @@ function getTokenWithDomain(stepId, stepPassword, domain, callBack) {
                 token = "Bearer " + response.data;
                 callBack(token, "");
             }
-
         }).catch((err) => {
             callBack("", err);
         });

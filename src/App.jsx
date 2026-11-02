@@ -1,5 +1,5 @@
 import './App.css'
-import { BrowserRouter, Routes, Route, Link, HashRouter } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Link, HashRouter, useNavigate } from 'react-router-dom'
 import Page1 from '/src/Page1';
 import Page2 from '/src/Page2';
 import Page3 from '/src/Page3';
@@ -17,18 +17,22 @@ function App() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [curPage, setCurPage] = useState(1);
+  const [topRefresh, setTopRefresh] = useState(false);
 
 
-  return <AppContext.Provider value={{ isLoading, setIsLoading }}>
-    <div className='loadingDiv' style={{ display: isLoading ? null : "none" }}>
-      <img className='spinning_fast' src="/graphql.png" width={"80"} />
-    </div>
-    {sessionStorage.getItem("stepId") + "" != "null" ? <>
-      <StepMain></StepMain>
-    </> : <>
-      <Login></Login>
-    </>}
-  </AppContext.Provider >
+  return <BrowserRouter>
+    <AppContext.Provider value={{ isLoading, setIsLoading, topRefresh, setTopRefresh }}>
+      <div className='loadingDiv' style={{ display: isLoading ? null : "none" }}>
+        <img className='spinning_fast' src="graphql.png" width={"80"} />
+      </div>
+      {sessionStorage.getItem("stepId") + "" != "null" ? <>
+        <StepMain></StepMain>
+      </> : <>
+        <Login></Login>
+      </>}
+    </AppContext.Provider >
+  </BrowserRouter>
+
 
   // <AppContext.Provider value={{ isLoading, setIsLoading }}>
   //   <BrowserRouter>

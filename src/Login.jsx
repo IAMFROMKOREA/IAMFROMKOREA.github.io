@@ -5,9 +5,11 @@ import { AppContext } from './App';
 import Page2 from './Page2';
 import axios from 'axios';
 import { getTokenWithDomain } from './ApiTest';
+import { useNavigate } from 'react-router-dom';
 
 
 function Login() {
+    const navigate = useNavigate();
 
     const sysList = [
         { name: "LBL Dev", domain: "https://lbl-dev.mdm.stibosystems.com" },
@@ -19,7 +21,7 @@ function Login() {
     const [domain, setDomain] = useState("https://lbl-dev.mdm.stibosystems.com");
     const [msg, setMsg] = useState("");
     const [spinningFast, setSpinningFast] = useState(false);
-    //const { setIsLoading } = useContext(AppContext);
+    const { setIsLoading } = useContext(AppContext);
 
 
 
@@ -38,7 +40,7 @@ function Login() {
         //         console.log("callGraphQLERR==" + err)
         //     });
 
-        //setIsLoading(true)
+        setIsLoading(true);
         if (!checkValid()) {
             alert("'STEPID' & 'STEP PASSWORD'& 'Domain' are required.");
             return;
@@ -47,17 +49,7 @@ function Login() {
         setSpinningFast(true);
         getTokenWithDomain(stepId, stepPassword, domain, callback_doLogin);
 
-        // if (token != "") {
-        //     setMsg("Login Success.");
-        //     sessionStorage.setItem("stepId", stepId);
-        //     sessionStorage.setItem("stepPassword", stepPassword);
-        //     sessionStorage.setItem("isMainWS", true);
-        //     sessionStorage.setItem("domain", domain);
-        //     window.location.href = "/";
-        // } else {
-        //     setMsg("Login Failed.");
-        // }
-        //setIsLoading(false)
+
 
 
     }
@@ -65,15 +57,22 @@ function Login() {
     function callback_doLogin(token, err) {
         if (token != "") {
             setMsg("Login Success.");
+
+            //e.preventDefault(); // 👉 페이지가 새로고침되는 기본 동작을 막습니다!
+            // 👇 강제로 스토리지에 들어가고 있는지 확인
+            console.log("^^저장 시도:", stepId);
             sessionStorage.setItem("stepId", stepId);
             sessionStorage.setItem("stepPassword", stepPassword);
-            sessionStorage.setItem("isMainWS", true);
+            sessionStorage.setItem("isMainWS", "true");
             sessionStorage.setItem("domain", domain);
-            window.location.href = "/";
+
+            console.log("저장된 값 확인:", sessionStorage.getItem("stepId")); // 여기서 값이 찍히는지 확인!
+            //navigate("/");
         } else {
             console.log(err);
-            setMsg(err.response.data.message);
+            setMsg(err.message);
         }
+        setIsLoading(false);
         setSpinningFast(false);
     }
 
@@ -96,7 +95,7 @@ function Login() {
                 <div className='loginSub loginRight'>
                     <div style={{ position: "relative" }}>
                         <div className="logoArea">
-                            <img className={!spinningFast ? "loginLogo" : "loginLogospinning_fast"} src="/graphql.png" width={"150"}></img>
+                            <img className={!spinningFast ? "loginLogo" : "loginLogospinning_fast"} src="graphql.png" width={"150"}></img>
 
                         </div>
                         <div>

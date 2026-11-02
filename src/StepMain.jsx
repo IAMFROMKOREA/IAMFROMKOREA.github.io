@@ -6,7 +6,7 @@ import { cloneObject, getAssetData, getClassificationData, getData, getEntityDat
 import ScrollToTop from './ScrollToTop';
 import { AppContext } from './App';
 import CustomCompControl from './CustomCompControl';
-
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -14,7 +14,7 @@ export const TreeViewContext = createContext();
 
 function StepMain() {
 
-
+    const navigate = useNavigate();
     const [detailData, setDetailData] = useState({ id: "" });
     const [init, setInit] = useState(false);  //화면 최초 로딩시 데이터 추출유무
     const [entityData, setEntityData] = useState({}); //entity 루트
@@ -23,7 +23,7 @@ function StepMain() {
 
     const curTabArea = document.getElementById('curTabArea');//top 버튼 클릭시 상단이동
     const [treeAreaWidth, setTreeAreaWidth] = useState(500);
-    const { setIsLoading } = useContext(AppContext);
+    const { setIsLoading, topRefresh, setTopRefresh } = useContext(AppContext);
     const [curTabNo, setCurTabNo] = useState(((sessionStorage.getItem("curTabNo") + "") == "null") ? 3 : sessionStorage.getItem("curTabNo")); //현재 탭번호
 
     const [conditionArr, setConditionArr] = useState([{ id: "id", value: "" }, { id: "name", value: "" }]); //조회조건
@@ -279,7 +279,7 @@ function StepMain() {
 
     function doLogout() {
         sessionStorage.clear();
-        window.location.href = "/";
+        setTopRefresh(!topRefresh);
     }
 
 
@@ -317,12 +317,12 @@ function StepMain() {
 
             <div className='header'>
                 <div>
-                    <img src="/graphql.png" width={"50"}></img>
+                    <img src="graphql.png" width={"50"}></img>
                     <div>GraphQL + STEP</div>
                     <div className={domainClsName}>[{curDomain}]</div>
                 </div>
                 <div className='basicBtn' onClick={doLogout}>
-                    <img src="/icon/logout.svg" width={25}></img>Logout
+                    <img src="icon/logout.svg" width={25}></img>Logout
                 </div>
 
             </div>
@@ -370,16 +370,16 @@ function StepMain() {
                         <label htmlFor='areaControl'>⇆</label>
                     </div>
                     <div className='tabArea'>
-                        <div className={curTabNo == 1 ? "curTab" : ""} onClick={() => { setCurTabNo(1); sessionStorage.setItem("curTabNo", 1); document.getElementById("areaControl").checked = false; }}><img src="/icon/tree.svg" width={"12px"} /></div>
-                        <div className={curTabNo == 2 ? "curTab" : ""} onClick={() => { setCurTabNo(2); sessionStorage.setItem("curTabNo", 2); document.getElementById("areaControl").checked = false; }}><img src="/icon/search.svg" width={"12px"} /></div>
-                        <div className={curTabNo == 3 ? "curTab" : ""} onClick={() => { setCurTabNo(3); sessionStorage.setItem("curTabNo", 3); }}><img src="/icon/cloud.svg" width={"12px"} /></div>
+                        <div className={curTabNo == 1 ? "curTab" : ""} onClick={() => { setCurTabNo(1); sessionStorage.setItem("curTabNo", 1); document.getElementById("areaControl").checked = false; }}><img src="icon/tree.svg" width={"12px"} /></div>
+                        <div className={curTabNo == 2 ? "curTab" : ""} onClick={() => { setCurTabNo(2); sessionStorage.setItem("curTabNo", 2); document.getElementById("areaControl").checked = false; }}><img src="icon/search.svg" width={"12px"} /></div>
+                        <div className={curTabNo == 3 ? "curTab" : ""} onClick={() => { setCurTabNo(3); sessionStorage.setItem("curTabNo", 3); }}><img src="icon/cloud.svg" width={"12px"} /></div>
                     </div>
                     <div className='blockArea'>
                         {//Tree Tab===========================================================================================
                             curTabNo == 1 ? <>
                                 <div className='locationArea' onClick={() => doRefreshMain(100)}>
                                     {/* <div className='titleArea'></div> */}
-                                    <div className='imgArea'><img src="/icon/location.svg" width={20} title='find location' /></div>
+                                    <div className='imgArea'><img src="icon/location.svg" width={20} title='find location' /></div>
                                 </div>
                                 <div className='treeArea' id="curTabArea" >
                                     {classificationData !== null && classificationData.id !== undefined ? <>
@@ -453,7 +453,7 @@ function StepMain() {
                                                                 </div>
 
                                                                 <div className='searchPanel_btn' onClick={() => removeCondition(index)}>
-                                                                    <img src="/icon/minus.svg" width={15}></img>
+                                                                    <img src="icon/minus.svg" width={15}></img>
                                                                 </div>
 
                                                             </div>
@@ -467,8 +467,8 @@ function StepMain() {
                                             <tr>
                                                 <td colSpan={2} style={{ padding: "0px" }}>
                                                     <div style={{ display: "flex", float: "right", margin: "5px" }}>
-                                                        <div className='searchPanel_btn custombtn' onClick={addCondition}><img src="/icon/plus.svg" width={"15px"} title={"Add Condition"} />Add</div>
-                                                        <div className='searchPanel_btn custombtn' onClick={doSearchData}><img src="/icon/search.svg" width={"15px"} title={"Search"} tabIndex={0} id="searchBtn" />Search</div>
+                                                        <div className='searchPanel_btn custombtn' onClick={addCondition}><img src="icon/plus.svg" width={"15px"} title={"Add Condition"} />Add</div>
+                                                        <div className='searchPanel_btn custombtn' onClick={doSearchData}><img src="icon/search.svg" width={"15px"} title={"Search"} tabIndex={0} id="searchBtn" />Search</div>
                                                     </div>
 
                                                 </td>

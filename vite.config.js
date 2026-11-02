@@ -24,5 +24,6 @@ export default defineConfig({
         ws: true
       }
     }
-  }
+  },
+  base: "./", // 상대 경로로 설정
 })
