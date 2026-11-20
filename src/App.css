@@ -230,6 +230,7 @@ input[type="checkbox"] {
 
 .tabStyle1 tr:hover>td {
   background-color: #c6d8db;
+  color: black;
 }
 
 .tabStyle1 th {
